@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "neochat",
+    "slug": "neochat",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "android": {
+      "splash": {
+        "image": "./assets/light-splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000",
+        "dark": {
+          "image": "./assets/dark-splash.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#fff"
+        }
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.solution247.neoapp"
+    },
+    "ios": {
+      "splash": {
+        "image": "./assets/light-splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000",
+        "dark": {
+          "image": "./assets/dark-splash.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#fff"
+        }
+      },
+      "supportsTablet": true,
+      "bundleIdentifier": "com.solution247.neoapp"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "react-native-imglysdk"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "87489d53-004c-4f8c-bbd0-f57fed1c70a4"
+      }
+    }
+  }
+}
