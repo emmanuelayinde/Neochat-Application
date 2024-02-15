@@ -47,11 +47,11 @@ export class User {
   public resetTokenTTL?: Date;
 
   //
-  @prop({ ref: () => Status })
-  public status?: Ref<Status>[];
+  // @prop({ ref: () => Status })
+  // public status?: Ref<Status>[];
 
-  @prop({ ref: () => Group })
-  public groups?: Ref<Group>[];
+  // @prop({ ref: () => Group })
+  // public groups?: Ref<Group>[];
 
   public async comparePassword(password: string): Promise<boolean> {
     return argon2.verify(this.password, password);

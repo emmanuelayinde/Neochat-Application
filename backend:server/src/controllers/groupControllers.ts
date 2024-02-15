@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import sendResponse from "../utils/sendResponse";
-import { IUser, groupAdminSchemaBody, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, userIdParams } from "../schema";
+import { IUser, groupAdminSchemaBody, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, updateGroupSchemaParams, userIdParams } from "../schema";
 import { addAdminToGroup, addMembersToGroup, deleteGroup, fetchCompleteGroupData, fetchGroupMiniInfo, fetchGroupsUserBelongTo, getCommonGroupBetweenTwoUsers, joinGroupWithGroupLink, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
 import { createNewGroup } from "../services";
 
@@ -257,13 +257,22 @@ class groupControllers {
   * @param res
   */
   static updateGroupProfile = async (
-    req: Request<groupSchemaParam, object, updateGroupSchemaBody>,
+    req: Request<updateGroupSchemaParams, object, updateGroupSchemaBody>,
     res: Response,
   ) => {
-    const { groupId } = req.params
+    const { groupId, userId } = req.params
+    const { avatar, groupDescription, groupName, limit, onlyAdminCanEditGroup, onlyAdminCanMessage } = req.body
 
     try {
-      const groupProfileResponse = await updateGroupInfo(groupId, { ...req.body })
+      const groupProfileResponse = await updateGroupInfo(groupId, userId,
+        {
+          avatar,
+          limit,
+          onlyAdminCanEditGroup,
+          onlyAdminCanMessage,
+          description: groupDescription,
+          name: groupName
+        })
 
       if (groupProfileResponse.error) {
         return sendResponse(

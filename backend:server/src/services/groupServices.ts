@@ -3,7 +3,7 @@ import { GroupModel, UserModel } from "../models";
 import { IServiceProp, IServicePropWithoutId, groupSchemaBody } from "../schema";
 import { Group } from "../models/groupModel";
 import { generateGroupLink } from "../utils/groupUtils";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 
 
@@ -96,6 +96,7 @@ export const fetchGroupMiniInfo = async (groupLink: string): Promise<IServicePro
 export const fetchCompleteGroupData = async (groupId: string): Promise<IServiceProp<Group>> => {
   try {
     const groupInfo = await GroupModel.findById(groupId)
+      .populate({ path: 'admins', select: 'name username avatar' })
       .populate({ path: 'members', select: 'name username avatar' })
 
     if (!groupInfo) return {
@@ -197,18 +198,64 @@ export const getCommonGroupBetweenTwoUsers = async (userOneId: string, userTwoId
  * @param groupData 
  * @returns 
  */
-export const updateGroupInfo = async (groupId: string, groupData: Partial<Group>): Promise<IServiceProp<Group>> => {
+export const updateGroupInfo = async (groupId: string, userId: string, groupData: Partial<Group>): Promise<IServiceProp<Group>> => {
   try {
-    const updateGroup = await GroupModel.findByIdAndUpdate(groupId,
-      { ...groupData },
-      { new: true, runValidators: true }
-    )
+    const updateGroup = await GroupModel.findById(groupId)
 
     if (!updateGroup) return {
       error: true,
       message: 'No group with the id found',
       statusCode: httpStatus.NOT_FOUND
     }
+
+    let isAdmin = false
+    const onlyAdminCanEditGroup = updateGroup.onlyAdminCanEditGroup
+
+    if (onlyAdminCanEditGroup) {
+      isAdmin = updateGroup.admins.includes(new Types.ObjectId(userId))
+      if (!isAdmin) {
+        return {
+          error: true,
+          message: 'Only admin can edit group info.',
+          statusCode: httpStatus.UNAUTHORIZED
+        }
+      }
+      else isAdmin = true
+    }
+
+    if (!isAdmin) {
+      const isMember = updateGroup.members.includes(new Types.ObjectId(userId))
+
+      if (!isMember) {
+        return {
+          error: true,
+          message: 'You are not authorized to edit group where you are not a member',
+          statusCode: httpStatus.UNAUTHORIZED
+        }
+      }
+    }
+
+    // const updatedData = { ...groupData }
+    // updateGroup
+
+    // updateGroup.save()
+
+
+    // await updateGroup.updateOne({
+    //   $set: { ...groupData, _id: undefined },
+    //   // { new: true },
+    // })
+
+
+    groupData.name && (updateGroup.name = groupData.name)
+    groupData.description && (updateGroup.description = groupData.description)
+    groupData.avatar && (updateGroup.avatar = groupData.avatar)
+    groupData.limit && (updateGroup.limit = groupData.limit)
+    groupData.onlyAdminCanEditGroup && (updateGroup.onlyAdminCanEditGroup = groupData.onlyAdminCanEditGroup)
+    groupData.onlyAdminCanMessage && (updateGroup.onlyAdminCanMessage = groupData.onlyAdminCanMessage)
+
+    updateGroup.save()
+
 
     return {
       error: false,

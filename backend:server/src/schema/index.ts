@@ -42,7 +42,8 @@ export {
   groupAdminSchemaBody,
   groupMembersSchema,
   groupMembersSchemaBody,
-  groupLinkSchemaParam
+  groupLinkSchemaParam,
+  updateGroupSchemaParams
 } from './groupSchema'
 
 

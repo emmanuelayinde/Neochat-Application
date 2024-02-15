@@ -22,7 +22,6 @@ groupRoute.post(
   groupControllers.joinGroup
 )
 
-
 groupRoute.get(
   "/",
   isAuthenticated,
@@ -49,8 +48,11 @@ groupRoute.get(
   groupControllers.readGroupData
 )
 
+
+
+
 groupRoute.put(
-  "/:groupId",
+  "/:groupId/by/:userId",
   processRequestBody(updateGroupSchema.body),
   isAuthenticated,
   groupControllers.updateGroupProfile

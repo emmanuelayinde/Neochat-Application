@@ -18,7 +18,7 @@ export function omit<T>(obj: T, fields: (keyof T)[]): T {
 
 
 
-export function removeFields<T extends Record<string, any>, K extends keyof T>(
+export function removeFields<T extends object, K extends keyof T>(
   obj: T,
   fieldsToRemove: K[]
 ): Omit<T, K> {
@@ -32,7 +32,7 @@ export function removeFields<T extends Record<string, any>, K extends keyof T>(
 }
 
 
-export function selectFields<T extends Record<string, any>, K extends keyof T>(
+export function selectFields<T extends object, K extends keyof T>(
   obj: T,
   fieldsToSelect: K[]
 ): Pick<T, K> {

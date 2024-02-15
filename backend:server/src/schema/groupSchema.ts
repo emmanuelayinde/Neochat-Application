@@ -46,9 +46,11 @@ export const updateGroupSchema = {
     onlyAdminCanMessage: boolean().optional(),
     onlyAdminCanEditGroup: boolean().optional()
   }),
+  params: object({
+    groupId: string({ required_error: 'Group id can not be omittded' }),
+    userId: string({ required_error: "User id can not be null" }),
+  }),
 };
-
-
 
 
 
@@ -57,5 +59,6 @@ export type groupSchemaParam = TypeOf<typeof groupSchema.param>;
 export type groupLinkSchemaParam = TypeOf<typeof groupSchema.link>
 // export type joinGroupSchemaParam = TypeOf<typeof groupSchema.join>
 export type updateGroupSchemaBody = TypeOf<typeof updateGroupSchema.body>
+export type updateGroupSchemaParams = TypeOf<typeof updateGroupSchema.params>
 export type groupAdminSchemaBody = TypeOf<typeof groupAdminSchema.body>
 export type groupMembersSchemaBody = TypeOf<typeof groupMembersSchema.body>
