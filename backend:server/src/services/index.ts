@@ -35,5 +35,8 @@ export {
   fetchGroupMiniInfo,
   removeAdminFromGroup,
   removeMembersFromGroup,
-  updateGroupInfo
+  updateGroupInfo,
+  fetchGroupsUserBelongTo,
+  joinGroupWithGroupLink,
+  getCommonGroupBetweenTwoUsers
 } from './groupServices'

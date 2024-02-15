@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../config";
 
 /**
@@ -25,10 +25,10 @@ export const signJWT = (paylaod: object) => {
  * @param token
  * @returns
  */
-export const verifyJWT = (token: string) => {
+export const verifyJWT = (token: string): JwtPayload | null => {
   try {
     const decoded = jwt.verify(token, config.JWT_SECRET);
-    return decoded;
+    return decoded as JwtPayload;
   } catch (error) {
     return null;
   }

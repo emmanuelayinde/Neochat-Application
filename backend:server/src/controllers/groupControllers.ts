@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import sendResponse from "../utils/sendResponse";
 import { IUser, groupAdminSchemaBody, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, userIdParams } from "../schema";
-import { addAdminToGroup, addMembersToGroup, deleteGroup, fetchCompleteGroupData, fetchGroupMiniInfo, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
+import { addAdminToGroup, addMembersToGroup, deleteGroup, fetchCompleteGroupData, fetchGroupMiniInfo, fetchGroupsUserBelongTo, getCommonGroupBetweenTwoUsers, joinGroupWithGroupLink, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
 import { createNewGroup } from "../services";
 
 
@@ -80,6 +80,132 @@ class groupControllers {
   };
 
 
+  /**
+  * Join New Group
+  * 
+  * @param req
+  * @param res
+  */
+  static joinGroup = async (
+    req: Request<groupLinkSchemaParam, object, IUser>,
+    res: Response,
+  ) => {
+    const { groupLink } = req.params;
+    const { _id } = req.body
+
+    try {
+      const joinGroupResponse = await joinGroupWithGroupLink(groupLink, _id)
+
+      if (joinGroupResponse.error) {
+        return sendResponse(
+          res,
+          joinGroupResponse.statusCode,
+          joinGroupResponse.message,
+          {},
+          joinGroupResponse.error)
+      }
+      return sendResponse(
+        res,
+        httpStatus.OK,
+        joinGroupResponse.message,
+        joinGroupResponse.data
+      )
+    } catch (error) {
+      console.log({ error });
+      return sendResponse(
+        res,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Something went wrong",
+        {},
+        true,
+      );
+    }
+  };
+
+
+  /**
+  * Get all user groups
+  * 
+  * @param req
+  * @param res
+  */
+  static getUserGroups = async (
+    req: Request<object, object, IUser>,
+    res: Response,
+  ) => {
+    const { _id } = req.body
+
+    try {
+      const userGroups = await fetchGroupsUserBelongTo(_id)
+
+      if (userGroups.error) {
+        return sendResponse(
+          res,
+          userGroups.statusCode,
+          userGroups.message,
+          {},
+          userGroups.error)
+      }
+      return sendResponse(
+        res,
+        httpStatus.OK,
+        userGroups.message,
+        userGroups.data
+      )
+    } catch (error) {
+      console.log({ error });
+      return sendResponse(
+        res,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Something went wrong",
+        {},
+        true,
+      );
+    }
+  };
+
+
+  /**
+  * Get all user groups
+  * 
+  * @param req
+  * @param res
+  */
+  static getGroupInCommonBetweenTwoUser = async (
+    req: Request<userIdParams, object, IUser>,
+    res: Response,
+  ) => {
+    const { _id } = req.body
+    const { userId } = req.params
+
+    try {
+      const commonGroupsResponse = await getCommonGroupBetweenTwoUsers(_id, userId)
+
+      if (commonGroupsResponse.error) {
+        return sendResponse(
+          res,
+          commonGroupsResponse.statusCode,
+          commonGroupsResponse.message,
+          {},
+          commonGroupsResponse.error)
+      }
+      return sendResponse(
+        res,
+        httpStatus.OK,
+        commonGroupsResponse.message,
+        commonGroupsResponse.data
+      )
+    } catch (error) {
+      console.log({ error });
+      return sendResponse(
+        res,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Something went wrong",
+        {},
+        true,
+      );
+    }
+  };
 
   /**
   * Fetch group profile

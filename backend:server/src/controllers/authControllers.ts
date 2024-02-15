@@ -12,7 +12,7 @@ import { loginUser, registerNewUser } from "../services/authServices";
 import { signJWT } from "../utils/jwt";
 import { extendTime, generateOTP } from "../utils";
 import { sendEmail } from "../services/emailServices";
-import { omit, selectFields } from "../utils/helpers";
+import {selectFields } from "../utils/helpers";
 import { UserModel } from "../models";
 
 class authControllers {

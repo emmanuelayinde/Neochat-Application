@@ -13,13 +13,13 @@ class userControllers {
    * @returns
    */
   static fetchMyProfileData = async (
-    req: Request<object, object, { user: IUser }>,
+    req: Request<object, object, IUser>,
     res: Response
   ) => {
-    const { user } = req.body;
+    const { _id } = req.body;
     try {
-  
-      const userResponse = await fetchCurrentUserProfile(user._id);
+
+      const userResponse = await fetchCurrentUserProfile(_id);
 
       if (userResponse?.error) {
         return sendResponse(

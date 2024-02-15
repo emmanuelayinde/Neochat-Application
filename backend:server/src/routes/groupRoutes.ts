@@ -15,6 +15,26 @@ groupRoute.post(
   groupControllers.createGroup
 )
 
+groupRoute.post(
+  "/:groupLink/join",
+  processRequestParams(groupSchema.link),
+  isAuthenticated,
+  groupControllers.joinGroup
+)
+
+
+groupRoute.get(
+  "/",
+  isAuthenticated,
+  groupControllers.getUserGroups
+)
+
+groupRoute.get(
+  "/common/user/:userId",
+  isAuthenticated,
+  groupControllers.getGroupInCommonBetweenTwoUser
+)
+
 groupRoute.get(
   "/:groupLink",
   processRequestParams(groupSchema.link),
@@ -78,10 +98,6 @@ groupRoute.post(
   isAuthenticated,
   groupControllers.removeMembersFromGroup
 )
-
-
-
-// TODO: Join Group Route
 
 
 export default groupRoute;

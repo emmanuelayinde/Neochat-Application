@@ -28,8 +28,8 @@ export const isAuthenticated = async (
     if (!decoded) {
       return sendResponse(res, httpStatus.UNAUTHORIZED, "Token expired");
     }
-    req.body.user = decoded;
-    console.log({ decoded }, req.body.user)
+    const _id = decoded['_id'] || ''
+    req.body._id = _id
     return next();
   } catch (error) {
     return sendResponse(

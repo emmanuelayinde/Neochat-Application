@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { GroupModel, UserModel } from "../models";
-import { IServiceProp, groupSchemaBody } from "../schema";
+import { IServiceProp, IServicePropWithoutId, groupSchemaBody } from "../schema";
 import { Group } from "../models/groupModel";
 import { generateGroupLink } from "../utils/groupUtils";
 import mongoose from "mongoose";
@@ -120,6 +120,77 @@ export const fetchCompleteGroupData = async (groupId: string): Promise<IServiceP
   }
 }
 
+
+/**
+ * Fetch Group that user belongs too
+ * 
+ * @param userId 
+ * @returns 
+ */
+export const fetchGroupsUserBelongTo = async (userId: string): Promise<IServicePropWithoutId<Group[]>> => {
+  try {
+    const userGroups = await GroupModel.find({ members: userId })
+      .select(['name', 'avatar'])
+
+    if (!userGroups) return {
+      error: true,
+      message: 'No group with the id found',
+      statusCode: httpStatus.NOT_FOUND
+    }
+
+    return {
+      error: false,
+      message: 'User groups fetch',
+      statusCode: httpStatus.OK,
+      data: userGroups
+    }
+  } catch (error) {
+    console.log({ error })
+    return {
+      error: true,
+      message: httpStatus["500_MESSAGE"],
+      statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+    }
+  }
+}
+
+
+
+/**
+ * Fetch Common Groups between 2 users
+ * 
+ * @param userOneId 
+ * @param userTwoId 
+ * @returns 
+ */
+export const getCommonGroupBetweenTwoUsers = async (userOneId: string, userTwoId: string): Promise<IServicePropWithoutId<Group[]>> => {
+  try {
+    const groupsInCommon = await GroupModel.find({ members: { $all: [userOneId, userTwoId] } })
+      .select(['name', 'avatar', 'description'])
+
+    if (!groupsInCommon) return {
+      error: true,
+      message: 'No group in common',
+      statusCode: httpStatus.OK
+    }
+
+    return {
+      error: false,
+      message: 'Common groups fetched',
+      statusCode: httpStatus.OK,
+      data: groupsInCommon
+    }
+  } catch (error) {
+    console.log({ error })
+    return {
+      error: true,
+      message: httpStatus["500_MESSAGE"],
+      statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+    }
+  }
+}
+
+
 /**
  * Update Group info like name, description, avatar, limit
  * 
@@ -196,6 +267,52 @@ export const deleteGroup = async (userId: string, groupId: string): Promise<ISer
     }
   }
 }
+
+
+/**
+ * Join Group using group link
+ * 
+ * @param groupLink 
+ * @param userId
+ * @returns 
+ */
+export const joinGroupWithGroupLink = async (groupLink: string, userId: string): Promise<IServiceProp<Group[]>> => {
+  try {
+    const group = await GroupModel.findOne({ link: groupLink })
+
+    if (!group) return {
+      error: true,
+      message: `No group with the group link ${groupLink} found`,
+      statusCode: httpStatus.NOT_FOUND
+    }
+
+    if (group.members.includes(new mongoose.Types.ObjectId(userId))) {
+      return {
+        error: true,
+        message: 'You are already a member of the group',
+        statusCode: httpStatus.BAD_REQUEST
+      }
+    }
+
+    group.members.push(new mongoose.Types.ObjectId(userId))
+    await group.save()
+
+    return {
+      error: false,
+      message: 'You have been added to the group',
+      statusCode: httpStatus.OK,
+    }
+  } catch (error) {
+    console.log({ error })
+    return {
+      error: true,
+      message: httpStatus["500_MESSAGE"],
+      statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+    }
+  }
+}
+
+
 
 
 /**

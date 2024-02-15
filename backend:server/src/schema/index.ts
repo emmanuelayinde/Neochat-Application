@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 // User Schema
 export {
@@ -55,6 +55,13 @@ export interface IServiceProp<T> {
   error: boolean;
   message: string;
   statusCode: number;
-  data?: T & { _id: mongoose.Types.ObjectId };
+  data?: T & { _id: Types.ObjectId };
 }
 
+
+export interface IServicePropWithoutId<T> {
+  error: boolean;
+  message: string;
+  statusCode: number;
+  data?: T
+}
