@@ -1,10 +1,9 @@
 import httpStatus from "http-status";
-import { GroupModel } from "../models";
+import { GroupModel, UserModel } from "../models";
 import { IServiceProp, groupSchemaBody } from "../schema";
 import { Group } from "../models/groupModel";
 import { generateGroupLink } from "../utils/groupUtils";
-import { Ref } from "@typegoose/typegoose";
-import { User } from "../models/userModel";
+import mongoose from "mongoose";
 
 
 
@@ -15,21 +14,28 @@ import { User } from "../models/userModel";
  * @param newGroupInfo 
  * @returns 
  */
-export const createNewGroup = async (newGroupInfo: groupSchemaBody): Promise<IServiceProp<Group>> => {
+export const createNewGroup = async (userId: string, newGroupInfo: groupSchemaBody): Promise<IServiceProp<Group>> => {
   try {
+    console.log({ userId })
     const link = generateGroupLink(newGroupInfo.groupName)
 
+    const groupMembersSet = new Set<string>([userId, ...newGroupInfo.members]);
+    const groupMembers = Array.from(groupMembersSet);
+
+
     const newGroupModel = new GroupModel({
-      owner: newGroupInfo.owner,
+      owner: userId,
       name: newGroupInfo.groupName,
       description: newGroupInfo.groupDescription ?? undefined,
       avatar: newGroupInfo.avatar ?? undefined,
-      admins: [newGroupInfo.owner],
-      members: newGroupInfo.members,
+      admins: [userId],
+      members: groupMembers,
       link,
     })
 
+    console.log({ newGroupModel })
     const newGroup = await newGroupModel.save()
+    console.log({ newGroup })
 
     return {
       error: false,
@@ -47,27 +53,23 @@ export const createNewGroup = async (newGroupInfo: groupSchemaBody): Promise<ISe
   }
 }
 
-
-
 /**
  * Fetch Group Mini Info
  * 
- * @param groupId 
+ * @param groupLink 
  * @returns 
  */
-export const fetchGroupMiniInfo = async (groupId: string): Promise<IServiceProp<Group>> => {
+export const fetchGroupMiniInfo = async (groupLink: string): Promise<IServiceProp<Group>> => {
   try {
-
-    const groupInfo = await GroupModel.findById(groupId)
-      .populate({ path: 'members', select: 'name username avatar' })
+    const groupInfo = await GroupModel.findOne({ link: groupLink })
+      .select(['_id', 'members', 'avatar', 'name', 'description', 'link', 'limit', 'createdAt'])
+      .populate({ path: 'members', select: 'name username avatar', options: { limit: 5 } })
 
     if (!groupInfo) return {
       error: true,
-      message: 'No group with the id found',
+      message: `No group with the link ${groupLink} found`,
       statusCode: httpStatus.NOT_FOUND
     }
-
-
 
     return {
       error: false,
@@ -159,7 +161,7 @@ export const updateGroupInfo = async (groupId: string, groupData: Partial<Group>
  * @param groupId 
  * @returns 
  */
-export const deleteGroup = async (groupId: string): Promise<IServiceProp<{}>> => {
+export const deleteGroup = async (userId: string, groupId: string): Promise<IServiceProp<object>> => {
   try {
     const existingGroup = await GroupModel.findById(groupId)
 
@@ -169,9 +171,20 @@ export const deleteGroup = async (groupId: string): Promise<IServiceProp<{}>> =>
       statusCode: httpStatus.NOT_FOUND,
     }
 
+    const isGroupAdmin = existingGroup.admins.some(admin => admin.id === userId)
+    if (!isGroupAdmin) {
+      return {
+        error: true,
+        message: 'Only Group Admin can delete group',
+        statusCode: httpStatus.UNAUTHORIZED
+      }
+    }
+
+    existingGroup.deleteOne()
+
     return {
       error: false,
-      message: 'Group deletedd',
+      message: 'Group deleted',
       statusCode: httpStatus.OK,
     }
   } catch (error) {
@@ -192,18 +205,37 @@ export const deleteGroup = async (groupId: string): Promise<IServiceProp<{}>> =>
  * @param adminId 
  * @returns 
  */
-export const addAdminToGroup = async (groupId: string, adminId: Ref<User>): Promise<IServiceProp<Group>> => {
+export const addAdminToGroup = async (userId: string, adminId: string, groupId: string): Promise<IServiceProp<Group>> => {
   try {
+
     const group = await GroupModel.findById(groupId)
 
     if (!group) return {
       error: true,
       message: 'No group with the id found',
-      statusCode: httpStatus.NOT_FOUND
+      statusCode: httpStatus.BAD_REQUEST
     }
 
+    if (group.admins.some(admin => admin.id === userId)) {
+      return {
+        error: true,
+        message: 'You are not authorised to perform this operation',
+        statusCode: httpStatus.UNAUTHORIZED
+      }
+    }
+
+    const userExist = await UserModel.findById(adminId)
+    if (!userExist) {
+      return {
+        error: true,
+        message: 'User does not exist',
+        statusCode: httpStatus.BAD_REQUEST
+      }
+    }
+
+
     // User must be a member of the group
-    if (!group.members.includes(adminId)) return {
+    if (!group.members.some(member => member._id === userExist._id)) return {
       error: true,
       message: "User is not a member of the group",
       statusCode: httpStatus.BAD_REQUEST
@@ -211,13 +243,14 @@ export const addAdminToGroup = async (groupId: string, adminId: Ref<User>): Prom
 
 
     // User must not be an admin already
-    if (group.admins.includes(adminId)) return {
+    if (group.admins.some(admin => admin._id === userExist._id)) return {
       error: true,
       message: "User is already an admin",
       statusCode: httpStatus.BAD_REQUEST
     }
 
-    group.admins.push(adminId)
+
+    group.admins.push(userExist)
     await group.save()
 
     return {
@@ -243,7 +276,7 @@ export const addAdminToGroup = async (groupId: string, adminId: Ref<User>): Prom
  * @param adminId 
  * @returns 
  */
-export const removeAdminToGroup = async (groupId: string, adminId: Ref<User>): Promise<IServiceProp<Group>> => {
+export const removeAdminFromGroup = async (userId: string, adminIdToBeRemoved: string, groupId: string): Promise<IServiceProp<Group>> => {
   try {
     const group = await GroupModel.findById(groupId)
 
@@ -253,21 +286,29 @@ export const removeAdminToGroup = async (groupId: string, adminId: Ref<User>): P
       statusCode: httpStatus.NOT_FOUND
     }
 
+
     // User must be an admin already
-    if (!group.admins.includes(adminId)) return {
+    if (!group.admins.some(admin => admin.id === userId)) return {
+      error: true,
+      message: "Only admin can perform this operation",
+      statusCode: httpStatus.UNAUTHORIZED
+    }
+
+    // User must be an admin already
+    if (!group.admins.some(admin => admin.id === adminIdToBeRemoved)) return {
       error: true,
       message: "User is not an admin",
       statusCode: httpStatus.BAD_REQUEST
     }
 
-    const newAdminList = group.admins.filter(admin => admin._id !== adminId)
+    const newAdminList = group.admins.filter(admin => admin.id !== adminIdToBeRemoved)
 
     group.admins = newAdminList
     await group.save()
 
     return {
       error: false,
-      message: 'Admin removed to group',
+      message: 'Admin removed from group',
       statusCode: httpStatus.OK,
     }
   } catch (error) {
@@ -282,8 +323,6 @@ export const removeAdminToGroup = async (groupId: string, adminId: Ref<User>): P
 
 
 
-
-
 /**
  * Add members to group
  * 
@@ -291,7 +330,7 @@ export const removeAdminToGroup = async (groupId: string, adminId: Ref<User>): P
  * @param members 
  * @returns 
  */
-export const addMembersToGroup = async (groupId: string, membersToAdd: Ref<User>[]): Promise<IServiceProp<Group>> => {
+export const addMembersToGroup = async (groupId: string, userId: string, membersToAdd: string[]): Promise<IServiceProp<Group>> => {
   try {
     const group = await GroupModel.findById(groupId)
 
@@ -301,7 +340,21 @@ export const addMembersToGroup = async (groupId: string, membersToAdd: Ref<User>
       statusCode: httpStatus.NOT_FOUND
     }
 
-    const filteredMembers = membersToAdd.filter(member => !group.members.includes(member))
+
+    if (group.admins.some(admin => admin.id === userId)) {
+      return {
+        error: true,
+        message: "Only admin can perform this operation",
+        statusCode: httpStatus.UNAUTHORIZED
+      }
+    }
+
+    const filteredMembers = membersToAdd
+      .map(member => new mongoose.Types.ObjectId(member))
+      .filter(member => !group.members.includes(member))
+
+    // new mongoose.Types.ObjectId(member)
+
     group.members.push(...filteredMembers)
     await group.save()
 
@@ -328,7 +381,7 @@ export const addMembersToGroup = async (groupId: string, membersToAdd: Ref<User>
  * @param membersToRemove 
  * @returns 
  */
-export const removeMembersToGroup = async (groupId: string, membersToRemove: Ref<User>[]): Promise<IServiceProp<Group>> => {
+export const removeMembersFromGroup = async (groupId: string, userId: string, membersToRemove: string[]): Promise<IServiceProp<Group>> => {
   try {
     const group = await GroupModel.findById(groupId)
 
@@ -339,9 +392,15 @@ export const removeMembersToGroup = async (groupId: string, membersToRemove: Ref
     }
 
 
-    const membersToRemoveSet = new Set(membersToRemove);
-    const updatedMembers = group.members.filter((member) => !membersToRemoveSet.has(member));
+    if (group.admins.some(admin => admin.id === userId)) {
+      return {
+        error: true,
+        message: "Only admin can perform this operation",
+        statusCode: httpStatus.UNAUTHORIZED
+      }
+    }
 
+    const updatedMembers = group.members.filter((member) => !membersToRemove.includes(member.id));
 
     group.members = updatedMembers
     await group.save()

@@ -5,7 +5,6 @@ export const starMessageSchema = {
   body: object({
     userId: string({ required_error: "User id can not be null" }),
     messageId: string().optional(),
-    groupMessageId: string().optional(),
     isGroup: boolean().optional()
   }),
 };

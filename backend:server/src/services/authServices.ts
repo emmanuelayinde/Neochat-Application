@@ -31,7 +31,7 @@ export const loginUser = async (
         { email: userCredential.emailOrUsername },
         { username: userCredential.emailOrUsername },
       ],
-    });
+    })
 
     if (!existingUser) {
       return {

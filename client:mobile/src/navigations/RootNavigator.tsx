@@ -26,7 +26,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const RootNavigator = () => {
   return (
     <RootStack.Navigator
-      initialRouteName="OnboardingOne"
+      initialRouteName="ChatsTab"
       screenOptions={{ headerShown: false }}
     >
       <RootStack.Screen name="ChatsTab" component={ChatTabNavigator} />

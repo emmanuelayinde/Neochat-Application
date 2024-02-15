@@ -24,3 +24,16 @@ export {
   starNewMessage
 } from './starredMessageServices'
 
+
+// Group Services 
+export {
+  addAdminToGroup,
+  addMembersToGroup,
+  createNewGroup,
+  deleteGroup,
+  fetchCompleteGroupData,
+  fetchGroupMiniInfo,
+  removeAdminFromGroup,
+  removeMembersFromGroup,
+  updateGroupInfo
+} from './groupServices'

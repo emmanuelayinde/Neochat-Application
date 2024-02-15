@@ -27,9 +27,8 @@ export class Group {
   public link: string;
 
   @prop({ default: false })
-  public onlyAdminCanMeesage: boolean;
+  public onlyAdminCanMessage: boolean;
 
   @prop({ default: false })
   public onlyAdminCanEditGroup: boolean;
-
 }

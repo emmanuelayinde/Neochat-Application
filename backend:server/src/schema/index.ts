@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
 // User Schema
-export { fetchProfileParamsType, fetchProfileSchema } from "./userSchema";
+export {
+  fetchProfileParamsType,
+  fetchProfileSchema,
+  userIdParams,
+  userIdSchema
+} from "./userSchema";
 
 // Status Schema
 export {
@@ -30,7 +35,14 @@ export {
 export {
   groupSchema,
   groupSchemaBody,
-  groupSchemaParam
+  groupSchemaParam,
+  updateGroupSchema,
+  updateGroupSchemaBody,
+  groupAdminSchema,
+  groupAdminSchemaBody,
+  groupMembersSchema,
+  groupMembersSchemaBody,
+  groupLinkSchemaParam
 } from './groupSchema'
 
 

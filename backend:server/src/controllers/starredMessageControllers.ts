@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
 import sendResponse from "../utils/sendResponse";
-import { deleteSingleStatusSchemaParam, deleteStarMessageSchemaParam, retrieveStarMessageSchemaParam, singleStatusSchemaParam, starMessageSchemaBody, statusSchemaBody, userStatusSchemaParam } from "../schema";
-import { createNewStatus, deleteExistingStarredMessage, deleteExistingStatus, retrieveAllStarredMessagesByUserId, retrieveAllUserStatusesByUserId, retrieveSingleStatusById, starNewMessage } from "../services";
+import { deleteStarMessageSchemaParam, retrieveStarMessageSchemaParam, starMessageSchemaBody } from "../schema";
+import { deleteExistingStarredMessage, retrieveAllStarredMessagesByUserId, starNewMessage } from "../services";
 
 
 
@@ -18,12 +18,11 @@ class starredMessageControllers {
     req: Request<object, object, starMessageSchemaBody>,
     res: Response,
   ) => {
-    const { userId, groupMessageId, isGroup, messageId } = req.body;
+    const { userId, isGroup, messageId } = req.body;
     try {
       await starNewMessage({
         user: new mongoose.Types.ObjectId(userId),
         message: new mongoose.Types.ObjectId(messageId),
-        groupMessage: new mongoose.Types.ObjectId(groupMessageId),
         isGroup,
       });
       return sendResponse(res, httpStatus.OK, "Successfully starred message");

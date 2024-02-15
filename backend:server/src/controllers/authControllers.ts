@@ -10,10 +10,9 @@ import {
 } from "../schema/authSchema";
 import { loginUser, registerNewUser } from "../services/authServices";
 import { signJWT } from "../utils/jwt";
-// import config from "../config";
 import { extendTime, generateOTP } from "../utils";
 import { sendEmail } from "../services/emailServices";
-import { omit } from "../utils/helpers";
+import { omit, selectFields } from "../utils/helpers";
 import { UserModel } from "../models";
 
 class authControllers {
@@ -54,18 +53,18 @@ class authControllers {
 
       // const data = omit(newUser, ["__v", "password"]);
 
-      const newUserData = omit(newUser, [
-        "password",
-        "resetToken",
-        "resetTokenTTL",
-        "__v",
-      ]);
+      // const newUserData = omit(newUser, [
+      //   "password",
+      //   "resetToken",
+      //   "resetTokenTTL",
+      //   "__v",
+      // ]);
 
       return sendResponse(
         res,
         httpStatus.CREATED,
         "User successfully created",
-        newUserData
+        selectFields(newUser, ['_id', 'avatar', 'email', 'name', 'username'])
       );
     } catch (error) {
       //   if (error.code === 11000) {
@@ -120,7 +119,7 @@ class authControllers {
         res,
         httpStatus.OK,
         "Successfully login",
-        response.data
+        selectFields(response.data, ['_id', 'avatar', 'email', 'name', 'username'])
       );
     } catch (error) {
       console.log({ error });

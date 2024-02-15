@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import sendResponse from "../utils/sendResponse";
 import { verifyJWT } from "../utils/jwt";
-import { decode } from "punycode";
 
 /**
  * Middleware for validating user's authentication
