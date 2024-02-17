@@ -22,6 +22,14 @@ groupRoute.post(
   groupControllers.joinGroup
 )
 
+
+groupRoute.get(
+  "/all",
+  isAuthenticated,
+  groupControllers.getAllGroups
+)
+
+
 groupRoute.get(
   "/",
   isAuthenticated,
@@ -48,16 +56,12 @@ groupRoute.get(
   groupControllers.readGroupData
 )
 
-
-
-
 groupRoute.put(
   "/:groupId/by/:userId",
   processRequestBody(updateGroupSchema.body),
   isAuthenticated,
   groupControllers.updateGroupProfile
 )
-
 
 groupRoute.delete(
   "/:groupId",
@@ -68,35 +72,32 @@ groupRoute.delete(
 
 
 groupRoute.post(
-  "/:groupId/add-admin",
-  processRequestBody(groupAdminSchema.body),
-  processRequestParams(groupSchema.param),
+  "/:groupId/add-admin/:userId",
+  processRequestParams(updateGroupSchema.params),
   isAuthenticated,
   groupControllers.addAdminToGroup
 )
 
-
 groupRoute.post(
-  "/:groupId/remove-admin/:",
-  processRequestBody(groupAdminSchema.body),
-  processRequestParams(groupSchema.param),
+  "/:groupId/remove-admin/:userId",
+  processRequestParams(updateGroupSchema.params),
   isAuthenticated,
   groupControllers.removeAdminFromGroup
 )
 
 groupRoute.post(
-  "/:groupId/add-members",
+  "/:groupId/add-members/by/:userId",
   processRequestBody(groupMembersSchema.body),
-  processRequestParams(groupSchema.param),
+  processRequestParams(updateGroupSchema.params),
   isAuthenticated,
   groupControllers.addMembersToGroup
 )
 
 
 groupRoute.post(
-  "/:groupId/remove-members",
+  "/:groupId/remove-members/by/:userId",
   processRequestBody(groupMembersSchema.body),
-  processRequestParams(groupSchema.param),
+  processRequestParams(updateGroupSchema.params),
   isAuthenticated,
   groupControllers.removeMembersFromGroup
 )

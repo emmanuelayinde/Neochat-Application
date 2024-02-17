@@ -1,10 +1,46 @@
 import { Request, Response } from "express";
 import sendResponse from "../utils/sendResponse";
 import httpStatus from "http-status";
-import { fetchCurrentUserProfile, fetchUserProfile } from "../services";
+import { fetchCurrentUserProfile, fetchUserProfile, getAllUsers } from "../services";
 import { IUser } from "../schema";
 
 class userControllers {
+
+
+  /**
+ *
+ * @param req
+ * @param res
+ * @returns
+ */
+  static fetchAllUsers = async (
+    req: Request<object, object, object>,
+    res: Response
+  ) => {
+    try {
+
+      const allUsersResponse = await getAllUsers();
+      return sendResponse(
+        res,
+        httpStatus.OK,
+        'All users fetchd',
+        allUsersResponse!
+      );
+    } catch (error) {
+      console.log({ error });
+      return sendResponse(
+        res,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Something went wrong",
+        {},
+        true
+      );
+    }
+  };
+
+
+
+
 
   /**
    *

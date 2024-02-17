@@ -1,7 +1,5 @@
-import { Ref, pre, prop } from "@typegoose/typegoose";
+import { pre, prop } from "@typegoose/typegoose";
 import argon2 from "argon2";
-import {Group} from "./groupModel";
-import { Status } from "./statusModel";
 
 @pre<User>("save", async function (next) {
   if (this.isModified("password") || this.isNew) {

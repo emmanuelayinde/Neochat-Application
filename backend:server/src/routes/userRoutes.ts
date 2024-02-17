@@ -8,6 +8,12 @@ import { isAuthenticated } from "../middleware";
 const userRoutes = Router();
 
 userRoutes.get(
+  "/all",
+  isAuthenticated,
+  userControllers.fetchAllUsers
+);
+
+userRoutes.get(
   "/current",
   isAuthenticated,
   userControllers.fetchMyProfileData

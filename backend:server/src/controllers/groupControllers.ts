@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import sendResponse from "../utils/sendResponse";
 import { IUser, groupAdminSchemaBody, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, updateGroupSchemaParams, userIdParams } from "../schema";
-import { addAdminToGroup, addMembersToGroup, deleteGroup, fetchCompleteGroupData, fetchGroupMiniInfo, fetchGroupsUserBelongTo, getCommonGroupBetweenTwoUsers, joinGroupWithGroupLink, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
-import { createNewGroup } from "../services";
+import { addAdminToGroup, addMembersToGroup, createNewGroup, deleteGroup, fetchAllGroups, fetchCompleteGroupData, fetchGroupMiniInfo, fetchGroupsUserBelongTo, getCommonGroupBetweenTwoUsers, joinGroupWithGroupLink, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
+
 
 
 class groupControllers {
@@ -37,6 +37,44 @@ class groupControllers {
       );
     }
   }
+
+
+
+
+  /**
+  * Fetch group profile
+  * 
+  * @param req
+  * @param res
+  */
+  static getAllGroups = async (
+    req: Request<object, object, object>,
+    res: Response,
+  ) => {
+
+    try {
+
+      const allGroups = await fetchAllGroups()
+
+      return sendResponse(
+        res,
+        httpStatus.OK,
+        "Successfully retrieved all groups",
+        allGroups!
+      )
+
+    } catch (error) {
+      console.log({ error });
+      return sendResponse(
+        res,
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Something went wrong",
+        {},
+        true,
+      );
+    }
+  };
+
 
 
   /**
@@ -357,11 +395,11 @@ class groupControllers {
    * @param res 
    * @returns 
    */
-  static addAdminToGroup = async (req: Request<groupSchemaParam, object, { adminId: groupAdminSchemaBody['adminId'], userId: IUser['_id'] }>, res: Response) => {
+  static addAdminToGroup = async (req: Request<updateGroupSchemaParams, object, IUser>, res: Response) => {
     try {
-      const { userId, adminId } = req.body
-      const { groupId } = req.params
-      const newAdminResponse = await addAdminToGroup(userId, adminId, groupId)
+      const { _id } = req.body
+      const { groupId, userId } = req.params
+      const newAdminResponse = await addAdminToGroup(_id, userId, groupId)
 
       if (newAdminResponse.error) {
         return sendResponse(
@@ -396,11 +434,11 @@ class groupControllers {
    * @param res 
    * @returns 
    */
-  static removeAdminFromGroup = async (req: Request<groupSchemaParam, object, { adminId: groupAdminSchemaBody['adminId'], userId: IUser['_id'] }>, res: Response) => {
+  static removeAdminFromGroup = async (req: Request<updateGroupSchemaParams, object, IUser>, res: Response) => {
     try {
-      const { userId, adminId } = req.body
-      const { groupId } = req.params
-      const newAdminResponse = await removeAdminFromGroup(userId, adminId, groupId)
+      const { _id } = req.body
+      const { groupId, userId } = req.params
+      const newAdminResponse = await removeAdminFromGroup(_id, userId, groupId)
 
       if (newAdminResponse.error) {
         return sendResponse(
@@ -436,10 +474,10 @@ class groupControllers {
    * @param res 
    * @returns 
    */
-  static addMembersToGroup = async (req: Request<groupSchemaParam, object, { members: groupMembersSchemaBody['members'], userId: IUser['_id'] }>, res: Response) => {
+  static addMembersToGroup = async (req: Request<updateGroupSchemaParams, object, groupMembersSchemaBody>, res: Response) => {
     try {
-      const { userId, members } = req.body
-      const { groupId } = req.params
+      const { members } = req.body
+      const { groupId, userId } = req.params
       const newAdminResponse = await addMembersToGroup(groupId, userId, members)
 
       if (newAdminResponse.error) {
@@ -475,10 +513,10 @@ class groupControllers {
    * @param res 
    * @returns 
    */
-  static removeMembersFromGroup = async (req: Request<groupSchemaParam, object, { members: groupMembersSchemaBody['members'], userId: IUser['_id'] }>, res: Response) => {
+  static removeMembersFromGroup = async (req: Request<updateGroupSchemaParams, object, groupMembersSchemaBody>, res: Response) => {
     try {
-      const { userId, members } = req.body
-      const { groupId } = req.params
+      const { members } = req.body
+      const { groupId, userId } = req.params
       const newAdminResponse = await removeMembersFromGroup(groupId, userId, members)
 
       if (newAdminResponse.error) {

@@ -3,6 +3,26 @@ import { IServiceProp } from "../schema";
 import { UserModel } from "../models";
 import { User } from "../models/userModel";
 
+
+
+
+
+/**
+ *
+ * @param queryKey
+ * @returns
+ */
+export const getAllUsers = async () => {
+  try {
+    const allUsers = await UserModel.find();
+    return allUsers;
+  } catch (error) {
+    return null;
+  }
+};
+
+
+
 /**
  *
  * @param queryKey
@@ -62,9 +82,7 @@ export const fetchCurrentUserProfile = async (
 ): Promise<IServiceProp<User>> => {
   try {
     const user = await UserModel.findById(userId)
-      .populate("status")
-      .populate("groups");
-
+   
     if (!user) {
       return {
         error: true,
@@ -79,7 +97,7 @@ export const fetchCurrentUserProfile = async (
       data: user,
     };
   } catch (error) {
-    console.log({error})
+    console.log({ error })
     return {
       error: true,
       message: "Something went wrong!",
@@ -99,7 +117,6 @@ export const fetchUserProfile = async (
 ): Promise<IServiceProp<User>> => {
   try {
     const user = await UserModel.findById(userId)
-      .populate("groups");
 
     if (!user) {
       return {
@@ -109,7 +126,7 @@ export const fetchUserProfile = async (
       };
     }
 
-    console.log({user})
+    console.log({ user })
     return {
       error: false,
       message: "User profile successfully retrieved!",

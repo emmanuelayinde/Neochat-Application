@@ -4,6 +4,7 @@ export {
   fetchUserProfile,
   updateUser,
   fetchCurrentUserProfile,
+  getAllUsers
 } from "./userServices";
 
 
@@ -27,6 +28,7 @@ export {
 
 // Group Services 
 export {
+  fetchAllGroups,
   addAdminToGroup,
   addMembersToGroup,
   createNewGroup,
@@ -38,5 +40,5 @@ export {
   updateGroupInfo,
   fetchGroupsUserBelongTo,
   joinGroupWithGroupLink,
-  getCommonGroupBetweenTwoUsers
+  getCommonGroupBetweenTwoUsers,
 } from './groupServices'

@@ -4,6 +4,8 @@ import { IServiceProp, IServicePropWithoutId, groupSchemaBody } from "../schema"
 import { Group } from "../models/groupModel";
 import { generateGroupLink } from "../utils/groupUtils";
 import mongoose, { Types } from "mongoose";
+import { Ref } from "@typegoose/typegoose";
+import { User } from "../models/userModel";
 
 
 
@@ -52,6 +54,29 @@ export const createNewGroup = async (userId: string, newGroupInfo: groupSchemaBo
     }
   }
 }
+
+
+
+
+/**
+ * Fetch All Groups
+ * 
+ * @returns 
+ */
+export const fetchAllGroups = async () => {
+  try {
+    const allGroups = await GroupModel.find()
+      .populate({ path: 'owner', select: 'name username avatar' })
+      .populate({ path: 'admins', select: 'name username avatar' })
+      .populate({ path: 'members', select: 'name username avatar' })
+
+    return allGroups
+  } catch (error) {
+    console.log({ error })
+    return null
+  }
+}
+
 
 /**
  * Fetch Group Mini Info
@@ -289,7 +314,7 @@ export const deleteGroup = async (userId: string, groupId: string): Promise<ISer
       statusCode: httpStatus.NOT_FOUND,
     }
 
-    const isGroupAdmin = existingGroup.admins.some(admin => admin.id === userId)
+    const isGroupAdmin = existingGroup.admins.includes(new mongoose.Types.ObjectId(userId))
     if (!isGroupAdmin) {
       return {
         error: true,
@@ -380,7 +405,7 @@ export const addAdminToGroup = async (userId: string, adminId: string, groupId: 
       statusCode: httpStatus.BAD_REQUEST
     }
 
-    if (group.admins.some(admin => admin.id === userId)) {
+    if (group.admins.includes(new mongoose.Types.ObjectId(userId))) {
       return {
         error: true,
         message: 'You are not authorised to perform this operation',
@@ -399,7 +424,7 @@ export const addAdminToGroup = async (userId: string, adminId: string, groupId: 
 
 
     // User must be a member of the group
-    if (!group.members.some(member => member._id === userExist._id)) return {
+    if (!group.members.includes(new mongoose.Types.ObjectId(adminId))) return {
       error: true,
       message: "User is not a member of the group",
       statusCode: httpStatus.BAD_REQUEST
@@ -407,7 +432,7 @@ export const addAdminToGroup = async (userId: string, adminId: string, groupId: 
 
 
     // User must not be an admin already
-    if (group.admins.some(admin => admin._id === userExist._id)) return {
+    if (group.admins.includes(new mongoose.Types.ObjectId(adminId))) return {
       error: true,
       message: "User is already an admin",
       statusCode: httpStatus.BAD_REQUEST
@@ -452,20 +477,21 @@ export const removeAdminFromGroup = async (userId: string, adminIdToBeRemoved: s
 
 
     // User must be an admin already
-    if (!group.admins.some(admin => admin.id === userId)) return {
+    if (!group.admins.includes(new mongoose.Types.ObjectId(userId))) return {
       error: true,
       message: "Only admin can perform this operation",
       statusCode: httpStatus.UNAUTHORIZED
     }
 
     // User must be an admin already
-    if (!group.admins.some(admin => admin.id === adminIdToBeRemoved)) return {
+    if (!group.admins.includes(new mongoose.Types.ObjectId(adminIdToBeRemoved))) return {
       error: true,
       message: "User is not an admin",
       statusCode: httpStatus.BAD_REQUEST
     }
 
-    const newAdminList = group.admins.filter(admin => admin.id !== adminIdToBeRemoved)
+
+    const newAdminList = group.admins.filter(admin => admin.toString() !== adminIdToBeRemoved)
 
     group.admins = newAdminList
     await group.save()
@@ -504,8 +530,7 @@ export const addMembersToGroup = async (groupId: string, userId: string, members
       statusCode: httpStatus.NOT_FOUND
     }
 
-
-    if (group.admins.some(admin => admin.id === userId)) {
+    if (group.admins.includes(new mongoose.Types.ObjectId(userId))) {
       return {
         error: true,
         message: "Only admin can perform this operation",
@@ -513,18 +538,28 @@ export const addMembersToGroup = async (groupId: string, userId: string, members
       }
     }
 
-    const filteredMembers = membersToAdd
-      .map(member => new mongoose.Types.ObjectId(member))
-      .filter(member => !group.members.includes(member))
+    if (group.members.length >= group.limit! || group.members.length + membersToAdd.length > group.limit!) {
+      return {
+        error: true,
+        message: "Group limit reached",
+        statusCode: httpStatus.BAD_REQUEST
+      }
+    }
 
-    // new mongoose.Types.ObjectId(member)
+    const existMembers = group.members.map(m => m.toString())
 
-    group.members.push(...filteredMembers)
+    membersToAdd.forEach(member => {
+      if (!existMembers.includes(member)) existMembers.push(member)
+    })
+
+    const newGroupMembersList = existMembers.map(member => new mongoose.Types.ObjectId(member))
+
+    group.members = newGroupMembersList
     await group.save()
 
     return {
       error: false,
-      message: filteredMembers.length > 1 ? 'New members added to group' : 'New member added to group',
+      message: membersToAdd.length > 1 ? 'New members added to group' : 'A new member added to group',
       statusCode: httpStatus.OK,
     }
   } catch (error) {
@@ -556,7 +591,7 @@ export const removeMembersFromGroup = async (groupId: string, userId: string, me
     }
 
 
-    if (group.admins.some(admin => admin.id === userId)) {
+    if (group.admins.includes(new mongoose.Types.ObjectId(userId))) {
       return {
         error: true,
         message: "Only admin can perform this operation",
@@ -564,7 +599,7 @@ export const removeMembersFromGroup = async (groupId: string, userId: string, me
       }
     }
 
-    const updatedMembers = group.members.filter((member) => !membersToRemove.includes(member.id));
+    const updatedMembers = group.members.filter((member) => !membersToRemove.includes(member.toString()));
 
     group.members = updatedMembers
     await group.save()
