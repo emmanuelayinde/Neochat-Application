@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import sendResponse from "../utils/sendResponse";
-import { IUser, groupAdminSchemaBody, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, updateGroupSchemaParams, userIdParams } from "../schema";
+import { IUser, groupLinkSchemaParam, groupMembersSchemaBody, groupSchemaBody, groupSchemaParam, updateGroupSchemaBody, updateGroupSchemaParams, userIdParams } from "../schema";
 import { addAdminToGroup, addMembersToGroup, createNewGroup, deleteGroup, fetchAllGroups, fetchCompleteGroupData, fetchGroupMiniInfo, fetchGroupsUserBelongTo, getCommonGroupBetweenTwoUsers, joinGroupWithGroupLink, removeAdminFromGroup, removeMembersFromGroup, updateGroupInfo } from "../services";
 
 

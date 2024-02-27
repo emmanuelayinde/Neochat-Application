@@ -6,23 +6,23 @@ import { isAuthenticated } from "../middleware";
 
 
 //
-const starredMeessageRoute = Router();
+const starredMessageRoute = Router();
 
-starredMeessageRoute.post(
+starredMessageRoute.post(
   "/new",
   processRequestBody(starMessageSchema.body),
   isAuthenticated,
   starredMessageControllers.createStarMessage,
 );
 
-starredMeessageRoute.get(
+starredMessageRoute.get(
   "/user/:userId",
   processRequestParams(retrieveStarMessageSchema.param),
   isAuthenticated,
   starredMessageControllers.retrievedStarredMessagesByUser,
 );
 
-starredMeessageRoute.delete(
+starredMessageRoute.delete(
   "/:messageId",
   processRequestParams(deleteStarMessageSchema.param),
   isAuthenticated,
@@ -30,4 +30,4 @@ starredMeessageRoute.delete(
 );
 
 
-export default starredMeessageRoute;
+export default starredMessageRoute;

@@ -46,6 +46,18 @@ export const extendTime = (
   return now.add(amount, unit).toDate();
 };
 
+
+
+
+// Compare two date, return True if the first is greater than the second, else return false
+export const validateTTL = (date: Date | string, timeInMins = 15): boolean => {
+  const currentDate = moment();
+  const suppliedData = moment(date);
+  const differenceMinutes = currentDate.diff(suppliedData, 'minutes');
+  return differenceMinutes < timeInMins;
+}
+
+
 /**
  * Multer Upload
  *

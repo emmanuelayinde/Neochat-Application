@@ -1,14 +1,15 @@
 import { Ref, prop } from "@typegoose/typegoose";
 import { User } from "./userModel";
 import { MESSAGE_TYPE } from ".";
+import { Message } from "./messageModel";
 
 
 export class Chat {
-  @prop({ required: true, ref: () => User })
-  public sender: Ref<User>;
+  @prop({ required: true, ref: () => User, type: Array })
+  public participants: Ref<User>[];
 
-  @prop({ required: true, ref: () => User })
-  public receiver: Ref<User>;
+  @prop({ ref: () => Message })
+  public lastMessage: Ref<Message>;
 
   @prop({ required: true, enum: MESSAGE_TYPE, type: String })
   public type: MESSAGE_TYPE;

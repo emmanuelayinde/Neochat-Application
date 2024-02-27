@@ -2,18 +2,16 @@ import { Ref, prop } from "@typegoose/typegoose";
 import { User } from "./userModel";
 import { MESSAGE_TYPE } from ".";
 import { Group } from "./groupModel";
-
-
-
+import { Chat } from "./chatModel";
 
 export class Message {
   @prop({ required: true, ref: () => User })
-  public from: Ref<User>;
+  public sender: Ref<User>;
 
   @prop({ refPath: 'messageType', required: true })
-  public to: Ref<User | Group>;
+  public chatId: Ref<Chat | Group>;
 
-  @prop({ enum: ['personal', 'group'], required: true })
+  @prop({ enum: ['1-1', 'group'], required: true })
   public messageType: string;
 
   @prop({ required: true, enum: MESSAGE_TYPE, type: String })

@@ -91,5 +91,11 @@ export enum CALL_TYPE {
   VIDEO = "video",
 }
 
+export enum CALL_STATUS {
+  ACTIVE = 'active',
+  ENDED = "ended",
+  INITIAL = 'initiate'
+}
+
 
 

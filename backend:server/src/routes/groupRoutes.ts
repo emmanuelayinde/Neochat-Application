@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { processRequestBody, processRequestParams } from "zod-express-middleware";
 import { groupControllers } from "../controllers";
-import { groupAdminSchema, groupMembersSchema, groupSchema, updateGroupSchema, userIdSchema } from "../schema";
+import { groupMembersSchema, groupSchema, updateGroupSchema, userIdSchema } from "../schema";
 import { isAuthenticated } from "../middleware";
 
 //

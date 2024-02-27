@@ -4,10 +4,6 @@ import { IServiceProp, IServicePropWithoutId, groupSchemaBody } from "../schema"
 import { Group } from "../models/groupModel";
 import { generateGroupLink } from "../utils/groupUtils";
 import mongoose, { Types } from "mongoose";
-import { Ref } from "@typegoose/typegoose";
-import { User } from "../models/userModel";
-
-
 
 
 /**

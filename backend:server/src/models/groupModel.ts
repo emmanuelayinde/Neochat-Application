@@ -1,5 +1,6 @@
 import { Ref, prop } from "@typegoose/typegoose";
 import { User } from "./userModel";
+import { Message } from "./messageModel";
 
 export class Group {
   @prop({ required: true, ref: () => User })
@@ -31,4 +32,7 @@ export class Group {
 
   @prop({ default: false })
   public onlyAdminCanEditGroup: boolean;
+
+  @prop({ ref: () => Message })
+  public lastMessage: Ref<Message>;
 }
