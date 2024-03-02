@@ -6,11 +6,13 @@ import { connectSocket, disconnectSocket } from "../redux/reducer/socketReducer"
 import useCurrentUser from "../hooks/UserHooks";
 
 
+export let socket: Socket
+
 const SocketProvider = ({ children }: { children: React.ReactElement }) => {
     const dispatch = useAppDispatch()
     const { currentUser } = useCurrentUser()
 
-    const socket = io(envConfig.SERVER_URL_LOCAL, {
+    socket = io(envConfig.SERVER_URL_LOCAL, {
         autoConnect: false,
         query: {
             userId: currentUser?._id
@@ -30,6 +32,7 @@ const SocketProvider = ({ children }: { children: React.ReactElement }) => {
 
         if (currentUser) {
             socket.connect()
+            socket.emit('fetchUserChats')
         }
 
         return function didUnmount() {

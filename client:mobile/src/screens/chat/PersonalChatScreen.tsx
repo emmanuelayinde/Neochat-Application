@@ -1,22 +1,40 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ScrollView, } from '../../components/styled'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ChatPreview, DynamicHeader } from '../../components'
 import { avatars } from '../../utils/avatar'
 import { Animated } from 'react-native'
+import useCurrentUser from '../../hooks/UserHooks'
+import { useAppSelector } from '../../redux/type'
+import { socketEvents } from '../../@types'
+import { socket } from '../../utils/socket'
+
+
 
 
 const PersonalChatScreen = () => {
-  // const navigation = useNavigation<RootStackNavigationProps<'ChatsTab'>>()
+  const { currentUser } = useCurrentUser()
+  const [userChats, setUserChats] = useState([])
+  // const { isConnected, socket, socketId } = useAppSelector(state => state.socketReducer)
+
   const scrollOffsetY = useRef(new Animated.Value(0)).current
+
+
+  useEffect(() => {
+    socket?.on<socketEvents>('fetchUserChats', (res) => console.log({ res }))
+    // socket?.emit<socketEvents>('fetchUserChats') 
+
+    return () => {
+      socket?.removeAllListeners()
+    }
+  }, [])
+
 
   return (
     <SafeAreaView style={{ backgroundColor: '#f9f9f9' }}>
       <StatusBar style='dark' />
-
       <DynamicHeader scrollOffsetY={scrollOffsetY} />
-      
 
       {/* Chats List */}
       <ScrollView

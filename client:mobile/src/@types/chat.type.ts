@@ -1,0 +1,5 @@
+// CHATS
+export interface IUserChat {
+
+}
+

@@ -62,7 +62,7 @@ const DynamicHeader = ({ scrollOffsetY }: { scrollOffsetY: Animated.Value }) => 
                     showsHorizontalScrollIndicator={false}
                     style={{ position: 'absolute', left: 4, top: statusTopValue }}
                 >
-                    <TouchableOpacity style={{ width: newStatusSize, height: newStatusSize, opacity: newStatusOpacity }} className={`relative rounded-full mr-2`} onPress={() => navigation.navigate('NewMediaStatus')}>
+                    <TouchableOpacity style={{ opacity: newStatusOpacity }} className={`relative rounded-full mr-2`} onPress={() => navigation.navigate('NewMediaStatus')}>
                         <Image source={{ uri: avatar }} resizeMode='contain' className='w-full h-full rounded-full' />
                         <View className='absolute -bottom-1 -right-1 flex items-center justify-center bg-white w-5 h-5 rounded-full'>
                             <FontAwesome5 name="plus" size={12} color="black" />
@@ -97,7 +97,7 @@ export default DynamicHeader
 
 export const StatusHandleDisplay = ({ item, newStatusSize, statusMargin }: { item: avatarType, newStatusSize: Animated.AnimatedInterpolation<string | number>, statusMargin: Animated.AnimatedInterpolation<string | number> }) => {
     const navigation = useNavigation<RootStackNavigationProps<'ChatsTab'>>()
-    return (<TouchableOpacity style={{ width: newStatusSize, height: newStatusSize, marginRight: statusMargin }} className='rounded-full border-2 border-primary' onPress={() => navigation.navigate('StatusDisplayScreen', { content: '1', type: 'image', viewedByMe: true })}>
+    return (<TouchableOpacity style={{ marginRight: statusMargin }} className='rounded-full border-2 border-primary' onPress={() => navigation.navigate('StatusDisplayScreen', { content: '1', type: 'image', viewedByMe: true })}>
         <Image source={{ uri: item.url }} resizeMode='contain' className='w-full h-full rounded-full' />
     </TouchableOpacity>)
 }

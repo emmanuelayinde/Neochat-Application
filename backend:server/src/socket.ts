@@ -21,6 +21,8 @@ export interface socketMessageProps {
   }
 }
 
+
+
 export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
   // Connect Socket Io
   io.on("connection", (socket: Socket) => {
@@ -41,14 +43,15 @@ export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, Defaul
      * Chats Operations
      * 
      * @@@Events Names
-     *   @getUserChats - 
+     *   @fetchUserChats - 
      */
 
     // Get user chats
-    socket.on('getUserChats', async (userId: string) => {
+    socket.on('fetchUserChats', async (userId: string) => {
       const chats = await getAllUserChats(userId)
+      console.log('Received events to fetched UserId')
       console.log({ chats })
-      socket.emit('incomingUserChats', chats)
+      socket.emit('fetchUserChats', chats)
     })
 
 

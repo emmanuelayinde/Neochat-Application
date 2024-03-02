@@ -46,6 +46,7 @@ export const getUser = async (queryKey: string) => {
  * @returns
  */
 export const updateUser = async (userId: string, updateData: Partial<User>) => {
+  console.log({ userId, updateData })
   try {
     const user = await UserModel.findById(userId);
     if (!user) return null
