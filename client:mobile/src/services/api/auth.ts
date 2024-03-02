@@ -1,12 +1,19 @@
+import axios, { AxiosError } from "axios";
 import api from ".";
+import { IUserData } from "../../redux/type";
 
-export interface httpResponseType {
+export interface httpResponseType<T> {
   statusCode: number;
   error: boolean;
-  data: {};
+  data?: T;
   message: string;
-  cl: NodeIterator;
 }
+
+
+// const retrieveToken = (rawToken: string) => {
+//   // response.headers["set-cookie"]?.[0]
+//   return rawToken.split(';')[0]
+// }
 
 /**
  * Register New User
@@ -20,7 +27,7 @@ export const createNewAccount = async (
   email: string,
   password: string,
   confirmPassword: string
-): Promise<httpResponseType | null> => {
+): Promise<httpResponseType<IUserData>> => {
   try {
     const response = await api.post("/auth/register", {
       name,
@@ -28,16 +35,26 @@ export const createNewAccount = async (
       password,
       confirmPassword,
     });
-
-    console.log("API.....", response.config, response.headers);
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log({ error });
-    return null;
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError = error as AxiosError;
+      const errorResponse = axiosError.response?.data as httpResponseType<{}>
+      return {
+        error: errorResponse.error,
+        message: errorResponse.message,
+        statusCode: errorResponse.statusCode
+      }
+    } else {
+      return {
+        error: true,
+        message: 'Something went wrong',
+        statusCode: 500,
+      }
+    }
   }
-};
-
+}
 
 /**
  * Login User to System
@@ -49,7 +66,7 @@ export const createNewAccount = async (
 export const login = async (
   emailOrUsername: string,
   password: string
-): Promise<httpResponseType | null> => {
+): Promise<httpResponseType<IUserData>> => {
   try {
     const response = await api.post("/auth/login", {
       emailOrUsername,
@@ -57,14 +74,28 @@ export const login = async (
     });
     return response.data;
   } catch (error) {
-    console.log({ error });
-    return null;
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError = error as AxiosError;
+      const errorResponse = axiosError.response?.data as httpResponseType<{}>
+      return {
+        error: errorResponse.error,
+        message: errorResponse.message,
+        statusCode: errorResponse.statusCode
+      }
+    } else {
+      return {
+        error: true,
+        message: 'Something went wrong',
+        statusCode: 500,
+      }
+    }
   }
-};
+}
 
 export const sendPasswordResetLink = async (
   email: string
-): Promise<httpResponseType | null> => {
+): Promise<httpResponseType<{}>> => {
   try {
     const response = await api.put("/auth/forgot-password", {
       email,
@@ -73,7 +104,21 @@ export const sendPasswordResetLink = async (
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log({ error });
-    return null;
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError = error as AxiosError;
+      const errorResponse = axiosError.response?.data as httpResponseType<{}>
+      return {
+        error: errorResponse.error,
+        message: errorResponse.message,
+        statusCode: errorResponse.statusCode
+      }
+    } else {
+      return {
+        error: true,
+        message: 'Something went wrong',
+        statusCode: 500,
+      }
+    }
   }
-};
+}

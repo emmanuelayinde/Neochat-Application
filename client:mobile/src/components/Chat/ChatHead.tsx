@@ -1,17 +1,13 @@
-
-
 import React from 'react'
 import { Image, Pressable, Text, TouchableOpacity, View } from '../styled'
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { avatar } from '../../../assets';
-import {  RootStackNavigationProps } from '../../navigations/types';
+import { RootStackNavigationProps } from '../../navigations/types';
 
 
 const ChatHead = () => {
-
     const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();
-
 
     return (
         <View className='flex-row items-center justify-between w-full h-14 p-2 bg-[#f9f9f9]' >
@@ -38,8 +34,6 @@ const ChatHead = () => {
                     <Entypo name='dots-three-vertical' color={'#374151'} size={24} />
                 </Pressable>
             </View>
-
-
         </View>
     )
 }

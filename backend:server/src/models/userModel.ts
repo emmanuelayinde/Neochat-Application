@@ -44,12 +44,14 @@ export class User {
   @prop()
   public resetTokenTTL?: Date;
 
-  //
-  // @prop({ ref: () => Status })
-  // public status?: Ref<Status>[];
+  @prop({ default: false })
+  public isOnline?: boolean;
 
-  // @prop({ ref: () => Group })
-  // public groups?: Ref<Group>[];
+  @prop()
+  public lastSeen?: Date;
+
+  @prop()
+  public socketId?: string;
 
   public async comparePassword(password: string): Promise<boolean> {
     return argon2.verify(this.password, password);

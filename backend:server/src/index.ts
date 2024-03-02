@@ -14,7 +14,9 @@ import morgan from "morgan";
 //
 export const app = express();
 export const httpServer = createServer(app);
-export const io = new Server(httpServer);
+export const io = new Server(httpServer, {
+  cors: { origin: "http://192.168.48.181:19000" }
+});
 
 //
 app.use(cookieParser());

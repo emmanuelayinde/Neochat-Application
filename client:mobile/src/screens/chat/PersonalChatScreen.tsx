@@ -4,13 +4,11 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ChatPreview, DynamicHeader } from '../../components'
 import { avatars } from '../../utils/avatar'
-import { RootStackNavigationProps } from '../../navigations/types'
-import { useNavigation } from '@react-navigation/native'
 import { Animated } from 'react-native'
 
 
 const PersonalChatScreen = () => {
-  const navigation = useNavigation<RootStackNavigationProps<'ChatsTab'>>()
+  // const navigation = useNavigation<RootStackNavigationProps<'ChatsTab'>>()
   const scrollOffsetY = useRef(new Animated.Value(0)).current
 
   return (

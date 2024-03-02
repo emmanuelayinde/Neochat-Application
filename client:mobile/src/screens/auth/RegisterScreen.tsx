@@ -16,12 +16,10 @@ import { Entypo } from "@expo/vector-icons";
 import { avatars } from "../../utils/avatar";
 import { useNavigation } from "@react-navigation/native";
 import { createNewAccount } from "../../services/api/auth";
-import { getItemFromStorage, setItemToStorage } from "../../utils/persistence";
-import { createUser } from "../../redux/reducer/userReducer";
-import { useDispatch } from "react-redux";
 import LoadingDots from "react-native-loading-dots";
 import Toast from "react-native-toast-message";
 import { RootStackNavigationProps } from "../../navigations/types";
+import useCurrentUser from "../../hooks/UserHooks";
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState("");
@@ -32,8 +30,7 @@ const RegisterScreen = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();;
   const [submitting, setSubmitting] = useState(false);
-
-  const dispatch = useDispatch();
+  const { currentUser, loginCurrentUser } = useCurrentUser()
 
   const createAccount = async () => {
     setSubmitting(true);
@@ -53,9 +50,17 @@ const RegisterScreen = () => {
             text1: "Welcome to the community",
             text2: res?.message,
           });
-          await setItemToStorage("user", JSON.stringify(res?.data));
-          dispatch(createUser({ ...res?.data }));
-          navigation.navigate("GroupChat");
+          if (res === null) {
+            throw new Error();
+          }
+
+          loginCurrentUser({
+            user: {
+              ...res.data!
+            },
+            userToken: ''
+          })
+          navigation.navigate('ChatsTab');
         } else {
           Toast.show({
             type: "error",
@@ -72,18 +77,14 @@ const RegisterScreen = () => {
     }
   };
 
-  useEffect(() => {
-    const checkIfLogin = async () => {
-      const userData = await getItemFromStorage("user");
-      if (!userData) {
-        return;
-      }
-      dispatch(createUser({ ...userData }));
-      return navigation.navigate("GroupChat");
-    };
 
-    checkIfLogin();
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+    return navigation.navigate("OneToOneChat");
   }, []);
+
 
   return (
     <View className="flex-1 items-center justify-start">

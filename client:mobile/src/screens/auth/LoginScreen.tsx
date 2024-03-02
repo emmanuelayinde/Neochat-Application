@@ -11,22 +11,17 @@ import InputField from "../../components/Form/InputField";
 import { useNavigation } from "@react-navigation/native";
 import { login } from "../../services";
 import LoadingDots from "react-native-loading-dots";
-import { useDispatch } from "react-redux";
-import { createUser } from "../../redux/reducer/userReducer";
-import { getItemFromStorage, setItemToStorage } from "../../utils/persistence";
 import Toast from "react-native-toast-message";
-import { useAppSelector } from "../../redux/type";
 import { RootStackNavigationProps } from "../../navigations/types";
+import useCurrentUser from "../../hooks/UserHooks";
+import { IUserData } from "../../redux/type";
 
 const LoginScreen = () => {
   const [submitting, setSubmitting] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();;
-
-  const dispatch = useDispatch();
-  const userData = useAppSelector((state) => state.userReducer.user);
-  console.log({ ...userData });
+  const { currentUser, loginCurrentUser, userToken } = useCurrentUser()
 
   /**
    *
@@ -37,6 +32,7 @@ const LoginScreen = () => {
     try {
       if (email && password) {
         const res = await login(email, password);
+        console.log({ res })
         if (res === null) {
           throw new Error();
         }
@@ -46,9 +42,13 @@ const LoginScreen = () => {
             text1: "Welcome Back!",
             text2: res.message || "You have successfully login",
           });
-          await setItemToStorage("user", JSON.stringify(res?.data));
-          dispatch(createUser({ ...res?.data }));
-          navigation.navigate('GroupChat');
+          loginCurrentUser({
+            user: {
+              ...res.data!
+            },
+            userToken: ''
+          })
+          navigation.navigate('ChatsTab');
         } else {
           Toast.show({
             type: "error",
@@ -66,17 +66,12 @@ const LoginScreen = () => {
   };
 
   useEffect(() => {
-    const checkIfLogin = async () => {
-      const userData = await getItemFromStorage("user");
-      if (!userData) {
-        return;
-      }
-      dispatch(createUser({ ...userData }));
-      return navigation.navigate("GroupChat");
-    };
-
-    checkIfLogin();
+    if (!currentUser) {
+      return;
+    }
+    return navigation.navigate("OneToOneChat");
   }, []);
+
 
   return (
     <View className="flex-1 items-center justify-start">

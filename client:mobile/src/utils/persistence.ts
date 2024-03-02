@@ -7,9 +7,9 @@ import { persistencePropTypes } from "./type";
  * @param value
  * @returns
  */
-export const setItemToStorage = async (
+export const setItemToStorage = async <T>(
   key: persistencePropTypes,
-  value: string
+  value: T | string
 ) => {
   try {
     const jsonValue = JSON.stringify(value);

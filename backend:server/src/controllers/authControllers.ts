@@ -12,7 +12,7 @@ import { loginUser, registerNewUser } from "../services/authServices";
 import { signJWT } from "../utils/jwt";
 import { extendTime, generateOTP } from "../utils";
 import { sendEmail } from "../services/emailServices";
-import {selectFields } from "../utils/helpers";
+import { selectFields } from "../utils/helpers";
 import { UserModel } from "../models";
 
 class authControllers {
@@ -64,7 +64,7 @@ class authControllers {
         res,
         httpStatus.CREATED,
         "User successfully created",
-        selectFields(newUser, ['_id', 'avatar', 'email', 'name', 'username'])
+        selectFields(newUser, ['_id', 'avatar', 'email', 'name', 'username', 'isOnline', 'lastSeen'])
       );
     } catch (error) {
       //   if (error.code === 11000) {
@@ -119,7 +119,7 @@ class authControllers {
         res,
         httpStatus.OK,
         "Successfully login",
-        selectFields(response.data, ['_id', 'avatar', 'email', 'name', 'username'])
+        selectFields(response.data, ['_id', 'avatar', 'email', 'name', 'username', 'isOnline', 'lastSeen'])
       );
     } catch (error) {
       console.log({ error });

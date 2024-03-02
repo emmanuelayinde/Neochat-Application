@@ -1,17 +1,69 @@
 import httpStatus from "http-status"
-import { MessageModel } from "../models"
+import { ChatModel, MESSAGE_TYPE, MessageModel } from "../models"
 import { IServicePropWithoutId } from "../schema"
 import { Message } from "../models/messageModel"
 import { validateTTL } from "../utils"
+import { Chat } from "../models/chatModel"
 
 
-// Get messages
-export const getMessages = async (chatId: string): Promise<IServicePropWithoutId<Message[]>> => {
+export interface messageProps {
+    from: string,
+    to: string,
+    chatId: string | null,
+    message: {
+        type: MESSAGE_TYPE,
+        text?: string,
+        files?: (Buffer | string)[],
+        voiceNote?: Buffer | string
+        isViewOnce?: boolean,
+        editted?: string,
+        isReference?: boolean,
+        isReferenceTo?: string,
+    }
+}
+
+export const getAllUserChats = async (userId: string): Promise<IServicePropWithoutId<Chat[]>> => {
     try {
-        const chatMessages = await MessageModel.find({ chatId })
+        const chats = await ChatModel.find({
+            // participants: userId
+        })
+            .select('participants lastMessage')
+            .populate('participants', 'name avatar username')
+            .populate('lastMessage', 'sender type isReply text voiceNote isViewOnce')
+
+        console.log({ chats, userId })
+        return {
+            error: false,
+            message: 'Chats fetched',
+            statusCode: httpStatus.OK,
+            data: chats
+        }
+    } catch (error) {
+        console.log({ error })
         return {
             error: true,
-            message: 'Messages fetched',
+            message: httpStatus["500_MESSAGE"],
+            statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+        }
+    }
+}
+
+// Get messages
+export const getChatMessages = async (chatId: string): Promise<IServicePropWithoutId<Chat>> => {
+    try {
+        const chatMessages = await ChatModel.findById(chatId)
+            .select('messages')
+
+        if (!chatMessages) {
+            return {
+                error: true,
+                message: 'No chat found',
+                statusCode: httpStatus.BAD_REQUEST
+            }
+        }
+        return {
+            error: false,
+            message: 'Chat fetched fetched',
             statusCode: httpStatus.OK,
             data: chatMessages
         }
@@ -24,7 +76,6 @@ export const getMessages = async (chatId: string): Promise<IServicePropWithoutId
         }
     }
 }
-
 
 // Get single message
 export const getMessageById = async (messageId: string): Promise<IServicePropWithoutId<Message>> => {
@@ -56,11 +107,57 @@ export const getMessageById = async (messageId: string): Promise<IServicePropWit
 
 
 // Post 1-1 message to chat
+export const postMessageToChat = async (data: messageProps): Promise<IServicePropWithoutId<Message>> => {
+    try {
+        let chat
+        // Create new chat if there is none
+        if (data.chatId) {
+            chat = await ChatModel.findById(data.chatId)
+        } else {
+            chat = await ChatModel.create({
+                participants: [data.from, data.to],
+                type: data.message['type'],
+                isViewOnce: data.message['isViewOnce'],
+                text: data.message['type'],
+                files: data.message['files'],
+                voiceNote: data.message['voiceNote']
+            })
+        }
+
+        const newMessage = await MessageModel.create({
+            chatId: chat?.id,
+            sender: data.from,
+            messageType: '1-1',
+            ...data.message
+        })
+
+        newMessage.save()
+        chat!.messages.push(newMessage._id)
+        chat!.lastMessage = newMessage.id
+        chat!.save()
+
+        return {
+            error: false,
+            message: 'Message sent',
+            statusCode: httpStatus.OK,
+            data: newMessage
+        }
+    } catch (error) {
+        console.log({ error })
+        return {
+            error: true,
+            message: httpStatus["500_MESSAGE"],
+            statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+        }
+    }
+}
+
 
 // Post group message to group chat
 
 
 // Forward 1-1 message 
+
 
 // Forward group message
 

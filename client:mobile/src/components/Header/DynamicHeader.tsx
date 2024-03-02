@@ -1,10 +1,10 @@
 import React from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View, screenWidth } from '../styled'
+import { Image, TouchableOpacity, View } from '../styled'
 import { avatar } from '../../../assets'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackNavigationProps } from '../../navigations/types'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Animated, FlatList, StyleSheet } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 import { avatarType, avatars } from '../../utils/avatar'
 
 
@@ -81,7 +81,7 @@ const DynamicHeader = ({ scrollOffsetY }: { scrollOffsetY: Animated.Value }) => 
                     /> */}
                 </Animated.ScrollView>
 
-
+                {/*  */}
                 <View className='absolute top-4 right-4 flex items-start h-full'>
                     <TouchableOpacity className='w-10 h-10 rounded-full' onPress={() => navigation.navigate('Profile', { userId: '1' })}>
                         <Image source={{ uri: avatar }} resizeMode='contain' className='w-full h-full rounded-full' />

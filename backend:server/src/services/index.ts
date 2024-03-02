@@ -42,3 +42,15 @@ export {
   joinGroupWithGroupLink,
   getCommonGroupBetweenTwoUsers,
 } from './groupServices'
+
+
+// Messages Services
+export {
+  clearChatMessages,
+  deleteMessage,
+  getMessageById,
+  getChatMessages,
+  postMessageToChat,
+  updateChatMessage,
+  getAllUserChats
+} from './messageServices'

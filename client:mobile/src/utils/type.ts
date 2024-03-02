@@ -1,1 +1,1 @@
-export type persistencePropTypes = "user";
+export type persistencePropTypes = "user" | "userToken";

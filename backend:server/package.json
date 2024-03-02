@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/index.js",
-    "dev": "eslint . && npm run nodemon",
+    "dev": "npm run lint && npm run nodemon",
     "nodemon": "nodemon --exec ts-node ./src/index.ts",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
