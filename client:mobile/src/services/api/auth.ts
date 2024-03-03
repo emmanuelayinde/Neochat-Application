@@ -1,13 +1,7 @@
 import axios, { AxiosError } from "axios";
 import api from ".";
 import { IUserData } from "../../redux/type";
-
-export interface httpResponseType<T> {
-  statusCode: number;
-  error: boolean;
-  data?: T;
-  message: string;
-}
+import { httpResponseType } from "../../@types";
 
 
 // const retrieveToken = (rawToken: string) => {

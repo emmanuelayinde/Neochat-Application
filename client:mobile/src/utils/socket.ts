@@ -1,9 +1,11 @@
 import io, { Socket } from "socket.io-client";
+// import io from 'socket.io-client/dist/socket.io';
+// import type { Socket } from 'socket.io-client/dist/socket.io';
 import { envConfig } from './config'
 import { useAppDispatch } from "../redux/type";
 import React, { useEffect } from "react";
 import { connectSocket, disconnectSocket } from "../redux/reducer/socketReducer";
-import useCurrentUser from "../hooks/UserHooks";
+import useCurrentUser from "../hooks/useUser";
 
 
 export let socket: Socket

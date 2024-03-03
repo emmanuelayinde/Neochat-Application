@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from 'react';
-import { IUserData, IUserProps, useAppDispatch } from '../redux/type';
 import { logoutUser, loginUser } from '../redux/reducer/userReducer';
 import { getItemFromStorage, removeItemFromStorage, setItemToStorage } from '../utils/persistence';
+import { IUserData, IUserProps } from '../@types';
+import { useAppDispatch } from '../redux/type';
 
 const useCurrentUser = () => {
     const [_currentUser, _setCurrentUser] = useState<IUserData | null>(null);
