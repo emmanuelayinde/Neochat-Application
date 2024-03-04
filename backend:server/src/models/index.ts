@@ -67,8 +67,6 @@ export const CallModel = getModelForClass(Call, {
 });
 
 
-
-
 export enum MESSAGE_TYPE {
   TEXT_MESSAGE = "text-message",
   VOICE_MESSAGE = "voice-message",
@@ -96,6 +94,3 @@ export enum CALL_STATUS {
   ENDED = "ended",
   INITIAL = 'initiate'
 }
-
-
-

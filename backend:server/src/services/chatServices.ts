@@ -27,9 +27,9 @@ export const getAllUserChats = async (userId: string): Promise<IServicePropWitho
         const chats = await ChatModel.find({
             // participants: userId
         })
-            .select('participants lastMessage')
-            .populate('participants', 'name avatar username')
-            .populate('lastMessage', 'sender type isReply text voiceNote isViewOnce')
+            // .select('participants lastMessage')
+            // .populate('participants', 'name avatar username')
+            // .populate('lastMessage', 'sender type isReply text voiceNote isViewOnce')
             .sort({ 'updatedAt': 'desc' })
         // .skip()
         // .limit()

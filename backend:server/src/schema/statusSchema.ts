@@ -4,11 +4,11 @@ import { STATUS_TYPE } from "../models";
 
 export const statusSchema = {
   body: object({
-    content: string({ required_error: "Content is required" }),
-    duration: number({ required_error: 'Status duration is required' }),
-    authorId: string({ required_error: "Author can not be null" }),
-    caption: string().optional(),
+    author: string({ required_error: "Author can not be null" }),
     type: nativeEnum(STATUS_TYPE),
+    content: string({ required_error: "Content is required" }),
+    caption: string().optional(),
+    duration: number({ required_error: 'Status duration is required' }),
   }),
 };
 
