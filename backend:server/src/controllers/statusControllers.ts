@@ -2,9 +2,8 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
 import sendResponse from "../utils/sendResponse";
-import { deleteSingleStatusSchemaParam, singleStatusSchemaParam, statusSchemaBody, userStatusSchemaParam } from "../schema";
+import { IUser, deleteSingleStatusSchemaParam, singleStatusSchemaParam, statusSchemaBody, userStatusSchemaParam } from "../schema";
 import { createNewStatus, deleteExistingStatus, retrieveAllUserStatusesByUserId, retrieveSingleStatusById } from "../services";
-
 
 
 class statusControllers {
@@ -18,18 +17,24 @@ class statusControllers {
     req: Request<object, object, statusSchemaBody>,
     res: Response,
   ) => {
-    const { content, authorId, type, caption, duration } = req.body;
+    const { content, author, type, caption, duration } = req.body;
     try {
-      await createNewStatus({
-        author: new mongoose.Types.ObjectId(authorId),
-        type,
-        content,
-        caption,
-        duration,
-      });
-      return sendResponse(res, httpStatus.OK, "Successfully posted status");
+      const newStatus = await createNewStatus(
+        author,
+        {
+          author: new mongoose.Types.ObjectId(author),
+          type,
+          content,
+          caption,
+          duration,
+        });
+
+      if (newStatus.error) {
+        return sendResponse(res, newStatus.statusCode, newStatus.message)
+      }
+      return sendResponse(res, newStatus.statusCode, newStatus.message, newStatus.data)
+
     } catch (error) {
-      console.log({ error });
       return sendResponse(
         res,
         httpStatus.INTERNAL_SERVER_ERROR,
@@ -52,11 +57,12 @@ class statusControllers {
     res: Response,
   ) => {
     const { userId } = req.params;
-
     try {
-      await retrieveAllUserStatusesByUserId(new mongoose.Types.ObjectId(userId))
-
-      return sendResponse(res, httpStatus.OK, "Successfully retrieved user statuses");
+      const userStatuses = await retrieveAllUserStatusesByUserId(new mongoose.Types.ObjectId(userId))
+      if (userStatuses.error) {
+        return sendResponse(res, userStatuses.statusCode, userStatuses.message)
+      }
+      return sendResponse(res, userStatuses.statusCode, userStatuses.message, userStatuses.data)
     } catch (error) {
       console.log({ error });
       return sendResponse(
@@ -83,9 +89,16 @@ class statusControllers {
     const { statusId } = req.params;
 
     try {
-      await retrieveSingleStatusById(new mongoose.Types.ObjectId(statusId))
+      const status = await retrieveSingleStatusById(new mongoose.Types.ObjectId(statusId))
 
-      return sendResponse(res, httpStatus.OK, "Successfully retrieved status");
+      if (status.error) {
+        return sendResponse(res, status.statusCode, status.message)
+      }
+      if (!status.data) {
+        return sendResponse(res, status.statusCode, status.message)
+      }
+
+      return sendResponse(res, status.statusCode, status.message, status.data)
     } catch (error) {
       console.log({ error });
       return sendResponse(
@@ -106,17 +119,19 @@ class statusControllers {
   * @param res
   */
   static deleteStatus = async (
-    req: Request<deleteSingleStatusSchemaParam, object, object>,
+    req: Request<deleteSingleStatusSchemaParam, object, IUser>,
     res: Response,
   ) => {
     const { statusId } = req.params;
+    const { _id } = req.body
 
     try {
-      await deleteExistingStatus(new mongoose.Types.ObjectId(statusId))
-
-      return sendResponse(res, httpStatus.OK, "Successfully deleted status");
+      const deletedStatus = await deleteExistingStatus(_id, new mongoose.Types.ObjectId(statusId))
+      if (deletedStatus.error) {
+        return sendResponse(res, deletedStatus.statusCode, deletedStatus.message)
+      }
+      return sendResponse(res, deletedStatus.statusCode, deletedStatus.message, deletedStatus.data)
     } catch (error) {
-      console.log({ error });
       return sendResponse(
         res,
         httpStatus.INTERNAL_SERVER_ERROR,

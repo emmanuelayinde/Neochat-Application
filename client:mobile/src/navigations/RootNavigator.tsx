@@ -11,13 +11,9 @@ import {
   ProfileScreen,
   OneToOneChat,
   GroupChat,
-  AudioCallScreen,
-  VideoCallScreen,
+  ActiveCallScreen,
   StatusDisplayScreen,
-  VerifyResetOTPScreen,
-  OnboardingScreenOne,
-  OnboardingScreenTwo,
-  OnboardingScreenThree,
+  VerifyResetOTPScreen
 } from "../screens";
 import { RootStackParamList } from "./types";
 
@@ -26,7 +22,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const RootNavigator = () => {
   return (
     <RootStack.Navigator
-      initialRouteName="Login"
+      initialRouteName="ChatsTab"
       screenOptions={{ headerShown: false }}
     >
       <RootStack.Screen name="ChatsTab" component={ChatTabNavigator} />
@@ -44,13 +40,8 @@ const RootNavigator = () => {
       <RootStack.Screen name="GroupChat" component={GroupChat} />
       {/* Call Screens */}
       <RootStack.Screen
-        name="AudioCall"
-        component={AudioCallScreen}
-        options={{ presentation: "modal" }}
-      />
-      <RootStack.Screen
-        name="VideoCall"
-        component={VideoCallScreen}
+        name="Call"
+        component={ActiveCallScreen}
         options={{ presentation: "modal" }}
       />
       {/* Status Screen */}
@@ -63,9 +54,9 @@ const RootNavigator = () => {
       {/* User Screen */}
       <RootStack.Screen name="Profile" component={ProfileScreen} />
       {/* Onboarding Screen */}
-      <RootStack.Screen name="OnboardingOne" component={OnboardingScreenOne} />
+      {/* <RootStack.Screen name="OnboardingOne" component={OnboardingScreenOne} />
       <RootStack.Screen name="OnboardingTwo" component={OnboardingScreenTwo} />
-      <RootStack.Screen name="OnboardingThree" component={OnboardingScreenThree} />
+      <RootStack.Screen name="OnboardingThree" component={OnboardingScreenThree} /> */}
       {/* </Stack.Navigator> */}
     </RootStack.Navigator>
   );

@@ -46,6 +46,7 @@ export const getUser = async (queryKey: string) => {
  * @returns
  */
 export const updateUser = async (userId: string, updateData: Partial<User>) => {
+  console.log({ userId, updateData })
   try {
     const user = await UserModel.findById(userId);
     if (!user) return null
@@ -104,7 +105,7 @@ export const fetchCurrentUserProfile = async (
   userId: string
 ): Promise<IServiceProp<User>> => {
   try {
-    const user = await UserModel.findById(userId).select('name email username createdAt isOnline lastSeen socketId')
+    const user = await UserModel.findById(userId).select('name email username createdAt isOnline lastSeen socketId statuses groups')
 
     if (!user) {
       return {
@@ -139,7 +140,7 @@ export const fetchUserProfile = async (
   userId: string
 ): Promise<IServiceProp<User>> => {
   try {
-    const user = await UserModel.findById(userId).select('name email username createdAt isOnline lastSeen socketId')
+    const user = await UserModel.findById(userId).select('name email username createdAt isOnline lastSeen socketId statuses groups')
 
     if (!user) {
       return {

@@ -152,7 +152,7 @@ export const fetchCompleteGroupData = async (groupId: string): Promise<IServiceP
 export const fetchGroupsUserBelongTo = async (userId: string): Promise<IServicePropWithoutId<Group[]>> => {
   try {
     const userGroups = await GroupModel.find({ members: userId })
-      .select(['name', 'avatar'])
+    .select(['name', 'avatar'])
 
     if (!userGroups) return {
       error: true,

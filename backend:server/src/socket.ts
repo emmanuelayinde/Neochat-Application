@@ -21,34 +21,35 @@ export interface socketMessageProps {
   }
 }
 
+
+
 export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
   // Connect Socket Io
   io.on("connection", (socket: Socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`);
     const id = socket.handshake.query['userId']
-    let userId: string
+    let userId: string = ''
     if (id) {
       if (Array.isArray(id)) {
         userId = id[0]
       }
       userId = id as string
       updateUser(userId, { isOnline: true, socketId: socket.id })
+      console.log(`⚡: User with the user id ${userId} & socket id ${socket.id} just connected!`);
     }
-
-
 
     /**
      * Chats Operations
      * 
      * @@@Events Names
-     *   @getUserChats - 
+     *   @fetchUserChats - 
      */
 
     // Get user chats
-    socket.on('getUserChats', async (userId: string) => {
+    socket.on('fetchUserChats', async (userId: string) => {
       const chats = await getAllUserChats(userId)
-      console.log({ chats })
-      socket.emit('incomingUserChats', chats)
+      // console.log('Received events to fetched UserId')
+      // console.log({ chats })
+      socket.emit('fetchUserChats', chats)
     })
 
 

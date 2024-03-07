@@ -15,9 +15,9 @@ export { default as StatusDisplayScreen } from "./status/StatusDisplayScreen";
 export { default as TextStatusScreen } from "./status/NewTextStatusScreen";
 export { default as MediaStatusScreen } from "./status/NewMediaStatusScreen";
 // Call Screens
-export { default as CallScreen } from "./call/CallsScreen";
-export { default as VideoCallScreen } from "./call/VideoCallScreen";
-export { default as AudioCallScreen } from "./call/AudioCallScreen";
+export { default as CallHistoryScreen } from "./call/CallHistoryScreen";
+export { default as ActiveCallScreen } from "./call/ActiveCallScreen";
+export { default as IncomingCallScreen } from './call/IncomingCallScreen'
 
 // User Screens
 export { default as ProfileScreen } from "./user/ProfileScreen";

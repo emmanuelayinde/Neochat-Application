@@ -21,8 +21,7 @@ export type RootStackParamList = {
   ForgetPassword: undefined;
   OneToOneChat: undefined;
   GroupChat: undefined;
-  AudioCall: undefined;
-  VideoCall: undefined;
+  Call: undefined;
   NewTextStatus: undefined;
   NewMediaStatus: undefined;
   StatusDisplayScreen: statusProps | statusProps[];

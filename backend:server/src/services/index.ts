@@ -53,4 +53,4 @@ export {
   postMessageToChat,
   updateChatMessage,
   getAllUserChats
-} from './messageServices'
+} from './chatServices'

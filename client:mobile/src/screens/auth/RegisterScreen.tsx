@@ -19,7 +19,7 @@ import { createNewAccount } from "../../services/api/auth";
 import LoadingDots from "react-native-loading-dots";
 import Toast from "react-native-toast-message";
 import { RootStackNavigationProps } from "../../navigations/types";
-import useCurrentUser from "../../hooks/UserHooks";
+import { useCurrentUser } from "../../hooks";
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState("");

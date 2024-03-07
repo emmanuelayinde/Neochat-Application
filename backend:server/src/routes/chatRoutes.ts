@@ -1,7 +1,12 @@
 import { Router } from "express";
+import { isAuthenticated } from "../middleware";
+import { chatControllers } from "../controllers";
 
 
-const messageRoutes = Router()
+const chatRoutes = Router()
+
+
+chatRoutes.get('/user-chats', isAuthenticated, chatControllers.userChats)
 
 
 // Get 1-1 chat messages
@@ -44,4 +49,4 @@ const messageRoutes = Router()
 
 
 
-export default messageRoutes;
+export default chatRoutes;

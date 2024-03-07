@@ -15,6 +15,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { FlashList as InfiniteFlatList } from "@shopify/flash-list";
+
 
 const _Text = styled(Text);
 const _View = styled(View);
@@ -29,7 +31,7 @@ const _BottomSheetTextInput = styled(BottomSheetTextInput);
 const _BottomSheet = styled(BottomSheet);
 const _ImageBackground = styled(ImageBackground)
 const _FlatList = styled(FlatList)
-
+const _InfiniteFlatList = styled(InfiniteFlatList)
 
 export { _SafeAreaView as SafeAreaView };
 export { _Text as Text };
@@ -44,6 +46,7 @@ export { _BottomSheetTextInput as BottomSheetTextInput };
 export { _BottomSheet as BottomSheet };
 export { _ImageBackground as ImageBackground };
 export { _FlatList as FlatList }
+export { _InfiniteFlatList as InfiniteFlatList }
 
 
 export const screenWidth = Dimensions.get("screen").width;

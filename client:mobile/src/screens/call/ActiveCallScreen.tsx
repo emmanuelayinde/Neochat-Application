@@ -9,7 +9,7 @@ import { avatar } from '../../../assets'
 import { RootStackNavigationProps } from '../../navigations/types'
 
 
-const AudioCallScreen = () => {
+const ActiveCallScreen = () => {
   const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -92,4 +92,4 @@ const AudioCallScreen = () => {
   )
 }
 
-export default AudioCallScreen
+export default ActiveCallScreen

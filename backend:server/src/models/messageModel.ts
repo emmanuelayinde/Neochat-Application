@@ -3,6 +3,7 @@ import { User } from "./userModel";
 import { MESSAGE_TYPE } from ".";
 import { Group } from "./groupModel";
 import { Chat } from "./chatModel";
+import { Status } from "./statusModel";
 
 export class Message {
   @prop({ required: true, ref: () => User })
@@ -23,8 +24,11 @@ export class Message {
   @prop({ type: Boolean, default: false })
   public isReply?: boolean;
 
-  @prop({ ref: () => Message })
-  public referenceTo?: Ref<Message>;
+  @prop({ enum: ['status', '1-1-message', 'group-message'] })
+  public replyFrom?: string;
+
+  @prop({ refPath: 'replyFrom' })
+  public referenceTo?: Ref<Message | Status>;
 
   @prop({})
   public text?: string;

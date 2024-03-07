@@ -10,7 +10,8 @@ export class Chat {
   // TODO: Make this generic
   @prop({ ref: () => Message })
   public lastMessage: Ref<Message>;
-
+  
+  // TODO: Make this generic
   @prop({ ref: () => Message })
   public messages: Ref<Message>[];
 }

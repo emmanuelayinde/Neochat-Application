@@ -16,7 +16,7 @@ export class Status {
   @prop({ required: true, enum: STATUS_TYPE, type: String })
   public type: STATUS_TYPE;
 
-  @prop({required: true})
+  @prop({ required: true })
   public content: string;
 
   @prop({})
@@ -29,5 +29,5 @@ export class Status {
   public expireAfter?: Date;
 
   @prop({ default: false })
-  public achieved?: boolean;
+  public isDeleted?: boolean;
 }
