@@ -2,7 +2,8 @@
 import React from 'react'
 import { Image, Pressable, Text, View } from '../styled'
 import { useNavigation } from '@react-navigation/native'
-import { RootStackNavigationProps } from '../../navigations/types'
+import { RootStackNavigationProps } from '../../@types'
+
 
 
 interface GroupChatPreviewType {

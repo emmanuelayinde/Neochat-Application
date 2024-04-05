@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react'
 import { Image, Pressable, Text, View } from '../styled'
-import { callProps, callStatusColor, callStatusIconName } from './type';
 import { avatar } from '../../../assets'
 import { MaterialIcons } from '@expo/vector-icons';
+import { callProps, callStatusColor, callStatusIconName } from '../../@types';
 
 
 const CallPreview = (props: callProps) => {
@@ -11,22 +11,22 @@ const CallPreview = (props: callProps) => {
 
     useEffect(() => {
         // return () => {
-            switch (props.status) {
-                case 'sent':
-                    setStatusBaseParams({ color: callStatusColor.SENT, icon: 'call-made' })
-                    break;
-                case 'received':
-                    setStatusBaseParams({ color: callStatusColor.RECEIVED, icon: 'call-received', })
-                    break;
-                case 'missed':
-                    setStatusBaseParams({ color: callStatusColor.MISSED, icon: 'call-missed', })
-                    break;
-                case 'canceled':
-                    setStatusBaseParams({ color: callStatusColor.CANCELED, icon: 'call-merge', })
-                    break;
-                default:
-                    return;
-            }
+        switch (props.status) {
+            case 'sent':
+                setStatusBaseParams({ color: callStatusColor.SENT, icon: 'call-made' })
+                break;
+            case 'received':
+                setStatusBaseParams({ color: callStatusColor.RECEIVED, icon: 'call-received', })
+                break;
+            case 'missed':
+                setStatusBaseParams({ color: callStatusColor.MISSED, icon: 'call-missed', })
+                break;
+            case 'canceled':
+                setStatusBaseParams({ color: callStatusColor.CANCELED, icon: 'call-merge', })
+                break;
+            default:
+                return;
+        }
         // }
     }, [])
 

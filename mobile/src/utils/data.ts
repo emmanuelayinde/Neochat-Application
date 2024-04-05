@@ -1,6 +1,4 @@
-import { avatar } from "../../assets";
-import { callProps } from "../components/Call/type";
-import { userStatusPreviewProps } from "../components/Status/type";
+import { callProps, userStatusPreviewProps } from "../@types";
 import { avatars } from "./avatar";
 
 // Status

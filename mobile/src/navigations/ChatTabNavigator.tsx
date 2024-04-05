@@ -2,8 +2,7 @@ import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CustomBottomTabs } from "../components";
 import { CallHistoryScreen, ChatScreen, GroupScreen, StatusScreen } from "../screens";
-import { ChatStackParamLists } from "./types";
-
+import { ChatStackParamLists } from "../@types";
 const TabsStack = createBottomTabNavigator<ChatStackParamLists>();
 
 const ChatTabNavigator = () => {

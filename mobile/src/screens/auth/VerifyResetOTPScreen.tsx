@@ -3,10 +3,8 @@ import { Image, Pressable, Text, View } from "../../components/styled";
 import { BGImage, Logo } from "../../../assets";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import OTPTextInput from "react-native-otp-textinput";
-import {
-  RootStackNavigationProps,
-  RootStackScreenProps,
-} from "../../navigations/types";
+import { RootStackNavigationProps, RootStackScreenProps } from "../../@types";
+
 
 const ForgetPasswordScreen = () => {
   const [otp, setOtp] = useState("");

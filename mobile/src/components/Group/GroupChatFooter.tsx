@@ -2,7 +2,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Pressable, TextInput, View } from "../styled";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackNavigationProps } from "../../navigations/types";
+import { RootStackNavigationProps } from "../../@types";
+
 
 interface GroupChatFooterProp {
   // navigation: RootStackScreenProps<'ChatsTab'>,

@@ -18,8 +18,8 @@ import { useNavigation } from "@react-navigation/native";
 import { createNewAccount } from "../../services/api/auth";
 import LoadingDots from "react-native-loading-dots";
 import Toast from "react-native-toast-message";
-import { RootStackNavigationProps } from "../../navigations/types";
 import { useCurrentUser } from "../../hooks";
+import { RootStackNavigationProps } from "../../@types";
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState("");

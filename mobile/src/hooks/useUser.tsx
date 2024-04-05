@@ -11,11 +11,14 @@ const useCurrentUser = () => {
 
     const dispatch = useAppDispatch()
 
+    console.log({ _currentUser, _userToken })
+
     useEffect(() => {
         const getCurrentUser = async () => {
             if (!_currentUser && !_userToken) {
                 const _userFromStorage = await getItemFromStorage('user')
                 const _userTokenFromStorage = await getItemFromStorage('userToken')
+                console.log({ _userFromStorage, _userTokenFromStorage })
                 if (!_userTokenFromStorage && !_userFromStorage) {
                     return
                 }
@@ -50,7 +53,7 @@ const useCurrentUser = () => {
         _setCurrentUser(null);
         _setuserToken(null)
         // Dispatch
-        dispatch(logoutUser)
+        dispatch(logoutUser())
         // Storage 
         removeItemFromStorage('user')
         removeItemFromStorage('userToken')

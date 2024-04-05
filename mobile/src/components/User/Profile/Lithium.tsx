@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { BlurView, Image, ImageBackground, Pressable, Text, View } from '../../styled'
-import { profileData } from '../type'
 import { BGImage, Logo } from '../../../../assets'
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { profileData } from '../../../@types';
 
 const LithiumProfileLayout: FC<{ data: profileData }> = ({ data }) => {
   const navigation = useNavigation()

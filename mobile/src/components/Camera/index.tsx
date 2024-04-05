@@ -5,9 +5,8 @@ import { Image, Pressable, TouchableOpacity, View } from '../styled';
 import PressableWithRipple from '../PressableWithRipple';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { ExpoCameraProps } from './types';
 import * as ImagePicker from 'expo-image-picker';
-import { RootStackNavigationProps } from '../../navigations/types';
+import { ExpoCameraProps, RootStackNavigationProps } from '../../@types';
 
 export default function ExpoCamera(props: ExpoCameraProps) {
 
@@ -82,10 +81,10 @@ export default function ExpoCamera(props: ExpoCameraProps) {
                             <MaterialIcons name="flip-camera-android" size={24} color="white" />
                         </PressableWithRipple>
                         <PressableWithRipple >
-                            <Ionicons name="ios-camera-reverse-outline" size={24} color="white" />
+                            <Ionicons name="camera-outline" size={24} color="white" />
                         </PressableWithRipple>
                         <PressableWithRipple >
-                            <Ionicons name="ios-camera-reverse-outline" size={24} color="white" />
+                            <Ionicons name="camera-outline" size={24} color="white" />
                         </PressableWithRipple>
                     </View>
                 </View>

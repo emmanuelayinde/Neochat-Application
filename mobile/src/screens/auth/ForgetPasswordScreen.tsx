@@ -12,7 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import { sendPasswordResetLink } from "../../services/api/auth";
 import Toast from "react-native-toast-message";
 import LoadingDots from "react-native-loading-dots";
-import { RootStackNavigationProps } from "../../navigations/types";
+import { RootStackNavigationProps } from "../../@types";
+
 
 const ForgetPasswordScreen = () => {
   const [email, setEmail] = useState("");

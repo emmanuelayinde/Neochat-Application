@@ -26,7 +26,7 @@ export const getAllUserChats = async (userId: string): Promise<IServicePropWitho
     try {
         const chats = await ChatModel.find({ participants: userId })
             .select('participants lastMessage')
-            .populate('participants', 'name avatar username')
+            .populate('participants', 'name avatar username isOnline lastSeen')
             .populate('lastMessage', 'sender type isReply text voiceNote isViewOnce')
             .sort({ 'updatedAt': 'desc' })
 
@@ -53,7 +53,24 @@ export const getAllUserChats = async (userId: string): Promise<IServicePropWitho
 export const getChatMessages = async (chatId: string): Promise<IServicePropWithoutId<Chat>> => {
     try {
         const chatMessages = await ChatModel.findById(chatId)
-            .select('messages')
+            .select('participants messages')
+            .populate({
+                path: 'messages',
+                populate: [
+                    {
+                        path: 'sender',
+                        model: 'User',
+                        select: 'name username avatar'
+                    },
+                    // {
+                    //     path: 'referenceTo',
+                    //     model: 'Message Status',
+                    // },
+                ]
+            })
+
+        console.log({ chatMessages })
+        //TODO: Add query to fetch in pages/chunks
 
         if (!chatMessages) {
             return {

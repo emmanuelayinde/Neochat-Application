@@ -2,10 +2,10 @@ import React from 'react'
 import { Image, TouchableOpacity, View } from '../styled'
 import { avatar } from '../../../assets'
 import { useNavigation } from '@react-navigation/native'
-import { RootStackNavigationProps } from '../../navigations/types'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Animated, StyleSheet } from 'react-native'
 import { avatarType, avatars } from '../../utils/avatar'
+import { RootStackNavigationProps } from '../../@types'
 
 
 const DynamicHeader = ({ scrollOffsetY }: { scrollOffsetY: Animated.Value }) => {

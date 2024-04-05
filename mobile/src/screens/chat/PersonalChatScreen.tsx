@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView, } from '../../components/styled'
 import { ChatPreview, ChatPreviewLoadingSkeleton, DynamicHeader } from '../../components'
-import { avatars } from '../../utils/avatar'
 import { Animated } from 'react-native'
 import useCurrentUser from '../../hooks/useUser'
 import { socketEvents, IChatPreview } from '../../@types'
@@ -15,7 +14,6 @@ import { FlashList as InfiniteFlatList } from '@shopify/flash-list'
 const PersonalChatScreen = () => {
   const { currentUser } = useCurrentUser()
   const [userChats, setUserChats] = useState([])
-  // const { isConnected, socket, socketId } = useAppSelector(state => state.socketReducer)
 
   const scrollOffsetY = useRef(new Animated.Value(0)).current
 
@@ -27,8 +25,6 @@ const PersonalChatScreen = () => {
   }, [])
 
   const { data, isError, isLoading } = useChat()
-
-  console.log({ ...data })
 
   return (
     <SafeAreaView style={{ backgroundColor: '#f9f9f9' }}>

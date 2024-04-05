@@ -1,3 +1,8 @@
+// Call 
+
+export type callTypes = 'voice' | 'video'
+export type callOrigin = '1-1-chat' | 'group-chat'
+
 export type callStatus = 'missed' | 'canceled' | 'received' | 'sent'
 
 export enum callStatusColor {

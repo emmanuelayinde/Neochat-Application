@@ -12,8 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import { login } from "../../services";
 import LoadingDots from "react-native-loading-dots";
 import Toast from "react-native-toast-message";
-import { RootStackNavigationProps } from "../../navigations/types";
 import { useCurrentUser } from "../../hooks";
+import { RootStackNavigationProps } from "../../@types";
 
 const LoginScreen = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -42,7 +42,7 @@ const LoginScreen = () => {
             text2: res.message || "You have successfully login",
           });
           loginCurrentUser({
-            user: { 
+            user: {
               ...res.data!
             },
             userToken: ''
@@ -64,12 +64,14 @@ const LoginScreen = () => {
     }
   };
 
+
   useEffect(() => {
     if (currentUser) {
       navigation.navigate("ChatsTab");
       console.log({ currentUser })
+      return
     }
-  }, []);
+  }, [currentUser]);
 
 
   return (

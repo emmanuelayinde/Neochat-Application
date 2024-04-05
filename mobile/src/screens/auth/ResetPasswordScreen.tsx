@@ -4,7 +4,8 @@ import { Image, Pressable, Text, TouchableOpacity, View } from '../../components
 import { BGImage, Logo } from '../../../assets'
 import InputField from '../../components/Form/InputField'
 import { useNavigation } from '@react-navigation/native'
-import { RootStackNavigationProps } from '../../navigations/types'
+import { RootStackNavigationProps } from '../../@types'
+
 
 const ResetPasswordScreen = () => {
     const [password, setPassword] = useState('')
@@ -18,7 +19,7 @@ const ResetPasswordScreen = () => {
             <View className='w-full h-full -mt-44 p-6 bg-white rounded-tl-[75px] space-y-6 items-center justify-start'>
                 <Image source={Logo} className='w-16 h-16' resizeMode='contain' />
                 <Text className='text-primaryText text-xl font-bold'>
-                  Set new password
+                    Set new password
                 </Text>
 
                 <View >
@@ -27,7 +28,7 @@ const ResetPasswordScreen = () => {
                     <TouchableOpacity>
                         <View className='w-full flex-row items-center justify-center rounded-lg py-2 my-3 bg-primary '>
                             <Text className='font-semibold text-xl text-white'>
-                              Update Password
+                                Update Password
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -39,7 +40,7 @@ const ResetPasswordScreen = () => {
                     </Text>
                     <Pressable onPress={() => navigation.navigate('Login')}>
                         <Text className='text-primary text-sm font-semibold '>
-                        Sign In
+                            Sign In
                         </Text>
                     </Pressable>
                 </View>

@@ -15,7 +15,7 @@ const GroupChat = () => {
       <StatusBar style='dark' />
 
       {/* Header  */}
-      <GroupChatHead />
+      <GroupChatHead data={{}} />
 
       {/* Chat Field */}
       <View className='flex-1 w-full bg-gray-100'>

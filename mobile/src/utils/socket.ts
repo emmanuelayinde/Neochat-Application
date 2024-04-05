@@ -14,10 +14,13 @@ const SocketProvider = ({ children }: { children: React.ReactElement }) => {
     const dispatch = useAppDispatch()
     const { currentUser } = useCurrentUser()
 
+    console.log({ currentUser })
+
     socket = io(envConfig.SERVER_URL_LOCAL, {
-        autoConnect: false,
+        autoConnect: true,
         query: {
-            userId: currentUser?._id
+            userId: envConfig.USER_ID
+            // userId: currentUser?._id || envConfig.USER_ID
         }
         // transports: ['websocket']
     });
@@ -32,9 +35,10 @@ const SocketProvider = ({ children }: { children: React.ReactElement }) => {
         socket.on('connect', () => onConnect());
         socket.on('disconnect', onDisconnect);
 
-        if (currentUser) {
+        if (currentUser || envConfig.USER_ID) {
+            console.log("Connecting socket")
             socket.connect()
-            socket.emit('fetchUserChats')
+            // socket.emit('fetchUserChats')
         }
 
         return function didUnmount() {

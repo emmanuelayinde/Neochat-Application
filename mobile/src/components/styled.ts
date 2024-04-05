@@ -16,6 +16,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { FlashList as InfiniteFlatList } from "@shopify/flash-list";
+import { RTCView } from "react-native-webrtc";
 
 
 const _Text = styled(Text);
@@ -32,6 +33,7 @@ const _BottomSheet = styled(BottomSheet);
 const _ImageBackground = styled(ImageBackground)
 const _FlatList = styled(FlatList)
 const _InfiniteFlatList = styled(InfiniteFlatList)
+const _RTCView = styled(RTCView)
 
 export { _SafeAreaView as SafeAreaView };
 export { _Text as Text };
@@ -47,6 +49,7 @@ export { _BottomSheet as BottomSheet };
 export { _ImageBackground as ImageBackground };
 export { _FlatList as FlatList }
 export { _InfiniteFlatList as InfiniteFlatList }
+export { _RTCView as RTCView }
 
 
 export const screenWidth = Dimensions.get("screen").width;

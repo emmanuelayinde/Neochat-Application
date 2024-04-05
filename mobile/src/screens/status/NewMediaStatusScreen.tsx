@@ -14,7 +14,7 @@ import { FontAwesome5, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import ExpoCamera from "../../components/Camera";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
-import { RootStackNavigationProps } from "../../navigations/types";
+import { RootStackNavigationProps } from "../../@types";
 
 const NewMediaStatusScreen = () => {
   const [duration, setDuration] = useState(24)

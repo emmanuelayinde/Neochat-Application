@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, Pressable, Text, View } from "../styled";
 import { useNavigation } from "@react-navigation/native";
-import { userStatusPreviewProps } from "./type";
-import { RootStackNavigationProps } from "../../navigations/types";
+import { RootStackNavigationProps, userStatusPreviewProps } from "../../@types";
+
 
 const UserStatusPreview = (props: userStatusPreviewProps) => {
   const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>()
@@ -24,9 +24,8 @@ const UserStatusPreview = (props: userStatusPreviewProps) => {
       className="flex-row space-x-4 items-center py-2 px-4"
     >
       <View
-        className={`w-12 h-12 rounded-full border-2 ${
-          props.status[0].viewedByMe ? "border-slate-400" : "border-primary"
-        } `}
+        className={`w-12 h-12 rounded-full border-2 ${props.status[0].viewedByMe ? "border-slate-400" : "border-primary"
+          } `}
       >
         <Image
           className="w-full h-full rounded-full"

@@ -2,11 +2,10 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { profileData, profileLayoutType } from '../../components/User/type'
 import { UserProfile } from '../../components'
 import { useRoute } from '@react-navigation/native'
-import { RootStackScreenProps } from '../../navigations/types'
 import { Text } from '../../components/styled'
+import { RootStackScreenProps, profileData, profileLayoutType } from '../../@types'
 
 const ProfileScreen = () => {
   const [profileLayout, setProfileLayout] = useState<profileLayoutType>('hydrogen')

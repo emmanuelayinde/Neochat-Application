@@ -11,21 +11,24 @@ import {
   ProfileScreen,
   OneToOneChat,
   GroupChat,
-  ActiveCallScreen,
+  OutgoingCallScreen,
   StatusDisplayScreen,
-  VerifyResetOTPScreen
+  VerifyResetOTPScreen,
+  IncomingCallScreen,
+  CallHistoryScreen
 } from "../screens";
-import { RootStackParamList } from "./types";
+import { RootStackParamList } from "../@types";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (
     <RootStack.Navigator
-      initialRouteName="ChatsTab"
+      initialRouteName="Login"
       screenOptions={{ headerShown: false }}
     >
       <RootStack.Screen name="ChatsTab" component={ChatTabNavigator} />
+
       {/* Auth Page */}
       <RootStack.Screen name="Login" component={LoginScreen} />
       <RootStack.Screen name="Register" component={RegisterScreen} />
@@ -35,14 +38,23 @@ const RootNavigator = () => {
         name="ForgetPassword"
         component={ForgetPasswordScreen}
       />
+
       {/* Chat Screens */}
       <RootStack.Screen name="OneToOneChat" component={OneToOneChat} />
       <RootStack.Screen name="GroupChat" component={GroupChat} />
+
       {/* Call Screens */}
       <RootStack.Screen
-        name="Call"
-        component={ActiveCallScreen}
-        options={{ presentation: "modal" }}
+        name="CallHistory"
+        component={CallHistoryScreen}
+      />
+      <RootStack.Screen
+        name="IncomingCall"
+        component={IncomingCallScreen}
+      />
+      <RootStack.Screen
+        name="OutgoingCall"
+        component={OutgoingCallScreen}
       />
       {/* Status Screen */}
       <RootStack.Screen name="NewTextStatus" component={TextStatusScreen} />
@@ -51,13 +63,16 @@ const RootNavigator = () => {
         name="StatusDisplayScreen"
         component={StatusDisplayScreen}
       />
+
       {/* User Screen */}
       <RootStack.Screen name="Profile" component={ProfileScreen} />
+
       {/* Onboarding Screen */}
       {/* <RootStack.Screen name="OnboardingOne" component={OnboardingScreenOne} />
       <RootStack.Screen name="OnboardingTwo" component={OnboardingScreenTwo} />
       <RootStack.Screen name="OnboardingThree" component={OnboardingScreenThree} /> */}
       {/* </Stack.Navigator> */}
+
     </RootStack.Navigator>
   );
 };

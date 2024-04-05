@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { profilePropType } from './type'
 import { HeliumProfile, HydrogenProfile, LithiumProfile } from './Profile';
+import { profilePropType } from '../../@types';
 
 
 const UserProfile: FC<profilePropType> = ({ profileLayout, userData }) => {

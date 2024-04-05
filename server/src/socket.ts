@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { MESSAGE_TYPE } from "./models";
-import { getAllUserChats, postMessageToChat, updateUser } from "./services";
+import { getAllUserChats, getChatMessages, postMessageToChat, updateUser } from "./services";
 
 
 export interface socketMessageProps {
@@ -20,7 +20,6 @@ export interface socketMessageProps {
     isReferenceTo?: string,
   }
 }
-
 
 
 export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
@@ -49,10 +48,22 @@ export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, Defaul
       const chats = await getAllUserChats(userId)
       // console.log('Received events to fetched UserId')
       // console.log({ chats })
-      socket.emit('fetchUserChats', chats)
+      socket.emit('userChats', chats)
     })
 
 
+    /**
+  * Chats Operations
+  * 
+  * @@@Events Names
+  *   @fetchUserChats - 
+  */
+
+    // Fetch Chats Message
+    socket.on('fetchChatMessages', async (prop: { chatId: string }) => {
+      const chatMessages = await getChatMessages(prop.chatId)
+      socket.emit('chatMessages', chatMessages)
+    })
 
 
     /**
@@ -63,7 +74,8 @@ export const initSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, Defaul
      */
     socket.on("sendMessage", async (messageData: socketMessageProps) => {
       // Emit received message to the other user in the chat
-      socket.to(messageData.toSocket).emitWithAck('incomingMessage', messageData)
+      // socket.to(messageData.toSocket).emitWithAck('incomingMessage', messageData)
+      socket.emitWithAck('incomingMessage', messageData)
       // Save message to DB
       await postMessageToChat({
         chatId: messageData.chatId,

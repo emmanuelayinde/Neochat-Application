@@ -69,6 +69,7 @@ export const CallModel = getModelForClass(Call, {
 
 export enum MESSAGE_TYPE {
   TEXT_MESSAGE = "text-message",
+  IMAGE_MESSAGE = "image-message",
   VOICE_MESSAGE = "voice-message",
   AUDIO_MESSAGE = "audio-message",
   VIDEO_MESSAGE = "video-message",

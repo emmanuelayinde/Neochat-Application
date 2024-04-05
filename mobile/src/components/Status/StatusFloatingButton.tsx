@@ -3,7 +3,8 @@ import React from 'react'
 import { Pressable, View } from '../styled'
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackNavigationProps } from '../../navigations/types';
+import { RootStackNavigationProps } from '../../@types';
+
 
 const StatusFloatingButton = () => {
     const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>()

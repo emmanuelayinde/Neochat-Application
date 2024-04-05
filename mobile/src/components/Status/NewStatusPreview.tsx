@@ -3,7 +3,9 @@ import { Image, Pressable, Text, View } from '../styled'
 import { Entypo } from '@expo/vector-icons';
 import { avatar } from '../../../assets';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackNavigationProps } from '../../navigations/types';
+import { RootStackNavigationProps } from '../../@types';
+
+
 
 const NewStatusPreview = () => {
     const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();

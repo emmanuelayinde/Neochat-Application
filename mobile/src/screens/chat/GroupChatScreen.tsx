@@ -6,10 +6,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { avatar } from '../../../assets'
 import { GroupChatPreview } from '../../components'
 import { avatars } from '../../utils/avatar'
-import { ChatStackScreenProps } from '../../navigations/types'
+import { ChatStackScreenProps, RootStackNavigationProps } from '../../@types'
+import { useNavigation } from '@react-navigation/native'
 
 
-const GroupChatScreen = ({ navigation }: ChatStackScreenProps<'Chats'>) => {
+
+const GroupChatScreen = () => {
+  const navigation = useNavigation<RootStackNavigationProps<"ChatsTab">>();
+
 
   return (
     <SafeAreaView style={{ backgroundColor: '#f9f9f9' }}>
@@ -18,7 +22,7 @@ const GroupChatScreen = ({ navigation }: ChatStackScreenProps<'Chats'>) => {
       {/* Header  */}
       <View className='flex-row items-center justify-between w-full h-fit py-2 px-4 bg-[#f9f9f9]' >
         <Text className='font-bold text-2xl' >neoChatApp</Text>
-        <TouchableOpacity className=' rounded-full border-2 border-primary' onPress={() => navigation.navigate('Profile', { isMine: true, userId: '123' })}>
+        <TouchableOpacity className=' rounded-full border-2 border-primary' onPress={() => navigation.navigate('Profile', { userId: '123' })}>
           <Image source={{ uri: avatar }} resizeMode='contain' className='w-9 h-9 rounded-full' />
         </TouchableOpacity>
       </View>

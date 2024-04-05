@@ -9,6 +9,7 @@ export { default as ChatScreen } from "./chat/PersonalChatScreen";
 export { default as GroupScreen } from "./chat/GroupChatScreen";
 export { default as OneToOneChat } from "./chat/OneToOneChat";
 export { default as GroupChat } from "./chat/GroupChat";
+
 // Status Screens
 export { default as StatusScreen } from "./status/StatusScreen";
 export { default as StatusDisplayScreen } from "./status/StatusDisplayScreen";
@@ -16,12 +17,11 @@ export { default as TextStatusScreen } from "./status/NewTextStatusScreen";
 export { default as MediaStatusScreen } from "./status/NewMediaStatusScreen";
 // Call Screens
 export { default as CallHistoryScreen } from "./call/CallHistoryScreen";
-export { default as ActiveCallScreen } from "./call/ActiveCallScreen";
+export { default as OutgoingCallScreen } from "./call/OutgoingCallScreen";
 export { default as IncomingCallScreen } from './call/IncomingCallScreen'
 
 // User Screens
 export { default as ProfileScreen } from "./user/ProfileScreen";
-
 
 // Onboarding Screen
 export { default as OnboardingScreenOne } from './onboarding/OnboardingScreenOne'

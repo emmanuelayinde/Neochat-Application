@@ -11,10 +11,16 @@ export { default as InputText } from "./Form/InputField";
 export { default as ChatPreview } from "./Chat/ChatPreview";
 export { default as ChatHead } from "./Chat/ChatHead";
 export { default as ChatFooter } from "./Chat/ChatFooter";
-export { default as TextMessage } from "./Chat/TextMessage";
-export { default as MediaMessage } from "./Chat/MediaMessage";
+export { default as TextMessage } from "./Chat/messageTypes/TextMessage";
+export { default as ImageMessage } from "./Chat/messageTypes/ImageMessage";
+export { default as AudioCallMessage } from './Chat/messageTypes/AudioCallMessage'
+export { default as VideoCallMessage } from './Chat/messageTypes/VideoCallMessage'
+export { default as FileMessage } from "./Chat/messageTypes/FileMessage";
+export { default as VoiceMessage } from "./Chat/messageTypes/VoiceMessage";
 export { default as ChatPreviewLoadingSkeleton } from "./Chat/ChatPreviewLoadingSkeleton";
 export { ChatPreviewSkeleton } from "./Chat/ChatPreviewLoadingSkeleton";
+export { default as ChatMessageDisplay } from './Chat/ChatMessageDisplay'
+
 
 
 // Group
@@ -36,6 +42,11 @@ export { default as TextEditor } from "./Editor/TextEditor";
 
 // Calls
 export { default as CallPreview } from "./Call/CallPreview";
+export { default as VideoCallUI } from './Call/VideoCallUI'
+export { default as VoiceCallUI } from './Call/VoiceCallUI'
+export { default as MainVideoFeed } from './Call/MainVideoFeed'
+export { default as SubVideoFeed } from './Call/SubVideoFeed'
+
 
 // User
 export { default as UserProfile } from './User'
