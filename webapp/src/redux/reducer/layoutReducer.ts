@@ -19,10 +19,13 @@ const layoutSlice = createSlice({
     },
     setCurrentScreen: (state, actions) => {
       state.currentScreen = actions.payload
+    },
+    resetScreen: (state) => {
+      state.currentScreen = undefined
     }
   },
 });
 
 
-export const { setCurrentScreen, setCurrentTab, setThemeMode } = layoutSlice.actions
+export const { setCurrentScreen, resetScreen, setCurrentTab, setThemeMode } = layoutSlice.actions
 export default layoutSlice.reducer;

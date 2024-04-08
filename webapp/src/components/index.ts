@@ -1,16 +1,18 @@
 // ui
 export { default as AppLogo } from './ui/Logo'
 export { default as MenuIcon } from './ui/MenuIcon'
-export { default as UserAvatar } from './ui/Avatar'
+export { AvatarUI as UserAvatar, BadgedAvatar as ChatAvatar } from './ui/Avatar'
 export { default as CustomTooltip } from './ui/Tooltip'
 
 // Chat
 export { default as UserChatLists } from './chat/ChatLists'
 export { default as UserGroupLists } from './chat/GroupLists'
+export { default as ChatPreview } from './chat/ChatPreview'
 
 // Layout Components
 export { default as LeftBar } from './layout/LeftBar'
 export { default as MenuBar } from './layout/MenuBar'
+export { default as HomeDispalay } from './/layout/HomeDisplay'
 
 // Call
 export { default as UserCallHistory } from './call/CallHistory'

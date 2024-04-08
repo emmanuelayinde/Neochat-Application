@@ -1,4 +1,5 @@
-import { callProps, userStatusPreviewProps } from "../@types";
+import { IChatPreview, MessageTypesEnum, callProps, userStatusPreviewProps } from "../@types";
+import { ChatIcon, GroupIcon, PhoneIcon, ReloadIcon, UserIcon } from '../assets'
 import { avatars } from "./avatar";
 
 // Status
@@ -313,7 +314,6 @@ export const textStatusScreenColor = [
 ];
 
 
-
 export const OnboardingScreenContent = [
   { title: 'title 1', subTitle: 'sub title 1', image: avatars[8] },
   { title: 'title 2', subTitle: 'sub title 2', image: avatars[7] },
@@ -323,28 +323,143 @@ export const OnboardingScreenContent = [
 
 export const menuTabs = [
   {
-    icon: 'profile',
+    icon: UserIcon,
     id: 'user-profile',
     label: "User Profile",
   },
   {
-    icon: 'chat',
+    icon: ChatIcon,
     id: 'user-chats',
     label: "User Chats",
   },
   {
-    icon: 'group',
+    icon: GroupIcon,
     id: 'user-groups',
     label: "User Groups",
   },
   {
-    icon: 'story',
+    icon: ReloadIcon,
     id: 'stories',
     label: "Active Stories",
   },
   {
-    icon: 'call history',
+    icon: PhoneIcon,
     id: 'call-history',
     label: "Call History",
   },
+]
+
+
+
+export const userChats: IChatPreview[] = [
+  {
+    chatId: '1',
+    user: {
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[0].url,
+      isOnline: true,
+      lastSeen: new Date()
+    },
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user_1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'text-message',
+      voiceNote: '',
+    },
+  },
+
+  {
+    chatId: '2',
+    user: {
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[2].url,
+      isOnline: true,
+      lastSeen: new Date()
+    },
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user_1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'text-message',
+      voiceNote: '',
+    },
+  },
+  {
+    chatId: '3',
+    user: {
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[2].url,
+      isOnline: true,
+      lastSeen: new Date()
+    },
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user_1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'text-message',
+      voiceNote: '',
+    },
+  },
+  {
+    chatId: '4',
+    user: {
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[3].url,
+      isOnline: true,
+      lastSeen: new Date()
+    },
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user_1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'text-message',
+      voiceNote: '',
+    },
+  },
+
 ]

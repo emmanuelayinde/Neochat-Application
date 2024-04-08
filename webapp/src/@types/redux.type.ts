@@ -1,4 +1,4 @@
-import { screenTypes, tabTypes, themeModeTypes } from ".";
+import { screenProps, screenTypes, tabTypes, themeModeTypes } from ".";
 import store from "../redux/store";
 
 
@@ -8,7 +8,7 @@ export type DispatchFunc = () => AppDispatch;
 
 export interface ILayoutProps {
     currentTabs: tabTypes,
-    currentScreen: screenTypes | undefined,
+    currentScreen: screenProps | undefined,
     themeMode: themeModeTypes
 }
 

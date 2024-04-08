@@ -1,3 +1,4 @@
+import { screenTypes } from "./layout.type"
 
 // CHATS
 export enum MessageTypesEnum {
@@ -23,7 +24,7 @@ export interface IChatPreviewUser {
 export interface ILastMessage {
     _id: string,
     sender: string | IChatPreviewUser,
-    type: MessageTypesEnum,
+    type: MessageTypes,
     isReply: boolean,
     text: string,
     voiceNote: string,
@@ -31,9 +32,9 @@ export interface ILastMessage {
 }
 
 export interface IChatPreview {
-    _id: string,
-    participants: IChatPreviewUser[],
-    lastMessage?: ILastMessage
+    chatId: string,
+    user: IChatPreviewUser,
+    lastMessage?: ILastMessage,
 }
 
 export interface ChatPreviewType {
@@ -86,3 +87,19 @@ export interface IChatProps {
     participants: string[],
     messages: IMessageProps[],
 }
+
+
+
+
+
+// GROUP 
+
+export interface IGroupChatPreview {
+    groupId: string,
+    participants: IChatPreviewUser[],
+    lastMessage?: ILastMessage,
+}
+
+
+
+export type chatStatus = 'online' | 'offline' | 'away'

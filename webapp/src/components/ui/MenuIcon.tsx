@@ -1,10 +1,9 @@
-import { Flex, Icon,Tooltip } from '@chakra-ui/react'
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/16/solid'
+import { As, Flex, Icon, Tooltip } from '@chakra-ui/react'
 
 
 interface IProps {
     isActive: boolean,
-    icon: string,
+    icon: As,
     label: string,
     handleNavigation: () => void,
     className?: string,
@@ -18,11 +17,17 @@ function MenuIcon({ isActive, icon, label, handleNavigation }: IProps) {
             <Flex onClick={handleNavigation}
                 alignItems={'center'}
                 justifyContent={'center'}
-                className={`${isActive && 'bg-brand-primary/40 border-b-4 border-primary md:border-l-4 md:border-b-0'} w-full px-2 py-3 cursor-pointer`}>
-                <Icon as={ChatBubbleBottomCenterIcon} aria-label={label} boxSize={6} />
+                className={`relative w-full rounded-md px-2 py-3 cursor-pointer  ${isActive ? 'bg-brand-secondary/75 hover:bg-brand-secondary/90' : 'hover:bg-secondary dark:hover:bg-secondary-dark '}`}
+            >
+                {isActive && <div className='absolute left-0 w-1 h-6 rounded-full bg-brand-primary' />}
+                <Icon as={icon} aria-label={label} boxSize={6} />
             </Flex>
         </Tooltip>
     )
 }
 
+// {isActive && 'bg-brand-primary/40 border-b-4 border-brand-primary md:border-l-4 md:border-b-0'}  
+
 export default MenuIcon
+
+

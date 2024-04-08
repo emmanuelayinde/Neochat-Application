@@ -9,7 +9,9 @@ export type {
     IChatProps,
     IMessageProps,
     IMessageSenderProps,
-    MessageTypes
+    MessageTypes,
+    IGroupChatPreview,
+    chatStatus
 } from './chat.type'
 
 // Call
@@ -30,7 +32,6 @@ export type {
     ILayoutProps
 } from './redux.type'
 
-
 // Status
 export type { statusContentType, statusProps, statusType, userStatusPreviewProps } from './status.type'
 
@@ -39,4 +40,4 @@ export type { profileData, profileLayoutType, profilePropType } from './profile.
 
 
 // Layout
-export type { tabTypes, screenTypes, themeModeTypes } from './layout.type'
+export type { tabTypes, screenTypes, themeModeTypes, IChatPageProps, IGroupPageProps, screenProps } from './layout.type'

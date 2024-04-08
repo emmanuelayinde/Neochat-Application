@@ -40,9 +40,33 @@ body {
 }
 
 
+
+
+/* BACKGROUND */
+.home-bg-dark {
+  background-color: #242424;
+  background-image: url('./assets/wallpaper/dark.png');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home-bg-light {
+  background-color: #242424;
+  background-image: url('./assets/wallpaper/light.png');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+  
 }
