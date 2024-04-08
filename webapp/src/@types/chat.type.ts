@@ -1,5 +1,3 @@
-import { screenTypes } from "./layout.type"
-
 // CHATS
 export enum MessageTypesEnum {
     TEXT_MESSAGE = "text-message",
@@ -23,7 +21,7 @@ export interface IChatPreviewUser {
 
 export interface ILastMessage {
     _id: string,
-    sender: string | IChatPreviewUser,
+    sender: IChatPreviewUser,
     type: MessageTypes,
     isReply: boolean,
     text: string,
@@ -31,9 +29,16 @@ export interface ILastMessage {
     isViewOnce: boolean
 }
 
+// export interface IChatPreview {
+//     chatId: string,
+//     user: IChatPreviewUser,
+//     lastMessage?: ILastMessage,
+// }
+
+
 export interface IChatPreview {
     chatId: string,
-    user: IChatPreviewUser,
+    participants: IChatPreviewUser[],
     lastMessage?: ILastMessage,
 }
 

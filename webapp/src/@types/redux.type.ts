@@ -1,4 +1,4 @@
-import { screenProps, screenTypes, tabTypes, themeModeTypes } from ".";
+import { screenProps, tabTypes, themeModeTypes } from ".";
 import store from "../redux/store";
 
 

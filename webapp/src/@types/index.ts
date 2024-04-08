@@ -40,4 +40,4 @@ export type { profileData, profileLayoutType, profilePropType } from './profile.
 
 
 // Layout
-export type { tabTypes, screenTypes, themeModeTypes, IChatPageProps, IGroupPageProps, screenProps } from './layout.type'
+export type { tabTypes, screenTypes, themeModeTypes, screenProps } from './layout.type'

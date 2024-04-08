@@ -1,4 +1,4 @@
-import { IChatPreview, MessageTypesEnum, callProps, userStatusPreviewProps } from "../@types";
+import { IChatPreview, callProps, userStatusPreviewProps } from "../@types";
 import { ChatIcon, GroupIcon, PhoneIcon, ReloadIcon, UserIcon } from '../assets'
 import { avatars } from "./avatar";
 
@@ -354,14 +354,14 @@ export const menuTabs = [
 export const userChats: IChatPreview[] = [
   {
     chatId: '1',
-    user: {
+    participants: [{
       _id: 'user_1',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[0].url,
       isOnline: true,
       lastSeen: new Date()
-    },
+    }],
     lastMessage: {
       _id: 'message_1',
       isReply: false,
@@ -382,41 +382,25 @@ export const userChats: IChatPreview[] = [
 
   {
     chatId: '2',
-    user: {
+    participants: [{
       _id: 'user_1',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[2].url,
       isOnline: true,
       lastSeen: new Date()
-    },
-    lastMessage: {
-      _id: 'message_1',
-      isReply: false,
-      isViewOnce: false,
-      sender: {
-        _id: 'user_1',
-        name: 'SoluTion',
-        username: 'solution',
-        avatar: avatars[0].url,
-        isOnline: true,
-        lastSeen: new Date()
-      },
-      text: "New Message",
-      type: 'text-message',
-      voiceNote: '',
-    },
+    }]
   },
   {
     chatId: '3',
-    user: {
+    participants: [{
       _id: 'user_1',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[2].url,
       isOnline: true,
       lastSeen: new Date()
-    },
+    }],
     lastMessage: {
       _id: 'message_1',
       isReply: false,
@@ -436,14 +420,14 @@ export const userChats: IChatPreview[] = [
   },
   {
     chatId: '4',
-    user: {
+    participants: [{
       _id: 'user_1',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[3].url,
       isOnline: true,
       lastSeen: new Date()
-    },
+    }],
     lastMessage: {
       _id: 'message_1',
       isReply: false,

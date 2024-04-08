@@ -1,5 +1,3 @@
-import React from 'react'
-
 function UserStories() {
     return (
         <div>UserStories</div>

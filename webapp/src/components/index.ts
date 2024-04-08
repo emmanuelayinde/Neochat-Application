@@ -8,6 +8,7 @@ export { default as CustomTooltip } from './ui/Tooltip'
 export { default as UserChatLists } from './chat/ChatLists'
 export { default as UserGroupLists } from './chat/GroupLists'
 export { default as ChatPreview } from './chat/ChatPreview'
+export { ChatMessage, LastChatMessage } from './chat/ChatMessage'
 
 // Layout Components
 export { default as LeftBar } from './layout/LeftBar'
