@@ -24,16 +24,16 @@ export const AvatarUI = ({ url, className }: IProps) => {
     )
 }
 
-
 interface IPropsBadge {
-    onlineStatus: chatStatus,
     url: string,
+    onlineStatus?: chatStatus,
     className?: string,
+    hasActiveStatus?: boolean,
 }
 
-export const BadgedAvatar = ({ onlineStatus, url, className }: IPropsBadge) => {
+export const BadgedAvatar = ({ onlineStatus, hasActiveStatus = false, url, className }: IPropsBadge) => {
     return (
-        <Avatar src={url} className={`${className} cursor-pointer`}   >
+        <Avatar src={url} className={`${className} ${hasActiveStatus && 'ring-4 ring-brandPrimary'} cursor-pointer`}>
             {onlineStatus == 'away' && <AvatarBadge boxSize='0.9em' borderWidth={'2px'} bg='gray' />}
             {onlineStatus == 'offline' && <AvatarBadge boxSize='0.9em' borderWidth={'2px'} bg='tomato' />}
             {onlineStatus == 'online' && <AvatarBadge boxSize='0.9em' borderWidth={'2px'} bg='green.500' />}

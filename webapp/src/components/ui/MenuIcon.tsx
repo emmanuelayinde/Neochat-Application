@@ -1,6 +1,5 @@
 import { As, Flex, Icon, Tooltip } from '@chakra-ui/react'
 
-
 interface IProps {
     isActive: boolean,
     icon: As,
@@ -9,7 +8,6 @@ interface IProps {
     className?: string,
     others?: string
 }
-
 
 function MenuIcon({ isActive, icon, label, handleNavigation }: IProps) {
     return (

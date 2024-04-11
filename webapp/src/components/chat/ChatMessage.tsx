@@ -20,7 +20,7 @@ interface ILastMessageProps {
 }
 
 
-export const LastChatMessage = ({ message, currentUserId }: ILastMessageProps) => {
+export const LastChatMessagePreview = ({ message, currentUserId }: ILastMessageProps) => {
     console.log({ message, currentUserId })
     return <p>last message</p>
 }

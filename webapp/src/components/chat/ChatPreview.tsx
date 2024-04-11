@@ -2,7 +2,7 @@ import { IChatPreview, screenTypes } from '../../@types'
 import { Flex, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '../../redux/type'
 import { setCurrentScreen } from '../../redux/reducer/layoutReducer'
-import { ChatAvatar, LastChatMessage } from '..'
+import { ChatAvatar, LastChatMessagePreview } from '..'
 import { avatars } from '../../data/avatar'
 
 interface IProps extends IChatPreview {
@@ -33,7 +33,7 @@ function ChatPreview({ chatId, participants, lastMessage, isActive, screen }: IP
                 <Flex flexDirection={'column'}>
                     <Text> {participants[0].name}</Text>
                     {lastMessage ?
-                        <LastChatMessage currentUserId='me' message={lastMessage} /> :
+                        <LastChatMessagePreview currentUserId='me' message={lastMessage} /> :
                         <Text>Say 'hi' to your new contact</Text>
                     }
                 </Flex>

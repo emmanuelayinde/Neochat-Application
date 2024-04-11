@@ -2,7 +2,6 @@ import { IChatPreview, callProps, userStatusPreviewProps } from "../@types";
 import { ChatIcon, GroupIcon, PhoneIcon, ReloadIcon, UserIcon } from '../assets'
 import { avatars } from "./avatar";
 
-// Status
 export const recentStatus: userStatusPreviewProps[] = [
   {
     avatar: avatars[1].url,
@@ -185,8 +184,6 @@ export const viewedStatus: userStatusPreviewProps[] = [
   },
 ];
 
-// Calls History
-
 export const callHistory: callProps[] = [
   {
     avatar: avatars[0].url,
@@ -302,7 +299,6 @@ export const callHistory: callProps[] = [
   },
 ];
 
-// Text Status Screen Color
 export const textStatusScreenColor = [
   "#4CAF50",
   "#2196F3",
@@ -313,13 +309,11 @@ export const textStatusScreenColor = [
   "#9C27B0",
 ];
 
-
 export const OnboardingScreenContent = [
   { title: 'title 1', subTitle: 'sub title 1', image: avatars[8] },
   { title: 'title 2', subTitle: 'sub title 2', image: avatars[7] },
   { title: 'title 3', subTitle: 'sub title 3', image: avatars[6] },
 ]
-
 
 export const menuTabs = [
   {
@@ -348,8 +342,6 @@ export const menuTabs = [
     label: "Call History",
   },
 ]
-
-
 
 export const userChats: IChatPreview[] = [
   {
@@ -447,3 +439,20 @@ export const userChats: IChatPreview[] = [
   },
 
 ]
+
+export const palletes = {
+  primary: "#43c651",
+  secondary: "#056526",
+  dark: {
+    primary: "#2e2e2e",
+    secondary: "#262626",
+    text: "#fefefe",
+    icon: "#fefefe",
+  },
+  light: {
+    primary: "#f3f3f3",
+    secondary: "#fefefe",
+    text: "#262626",
+    icon: "#262626",
+  }
+}

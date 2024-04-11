@@ -14,5 +14,11 @@ export {
     MoonIcon,
     OutgoingCallIcon,
     SunIcon,
-    LockIcon
+    LockIcon,
+    VideoIcon,
+    SearchIcon,
+    AddIcon,
+    AttachmentIcon,
+    SendIcon,
+    EmojiIcon
 } from './icon'
