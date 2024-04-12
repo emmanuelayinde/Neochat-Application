@@ -20,5 +20,6 @@ export {
     AddIcon,
     AttachmentIcon,
     SendIcon,
-    EmojiIcon
+    EmojiIcon,
+    TimesIcon
 } from './icon'

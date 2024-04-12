@@ -3,7 +3,8 @@ import { ChatAvatar, IconButton } from ".."
 import { avatars } from "../../data/avatar"
 import { PhoneIcon, SearchIcon, VideoIcon } from "../../assets"
 import { palletes } from "../../data"
-import { useAppSelector } from "../../redux/type"
+import { useAppDispatch, useAppSelector } from "../../redux/type"
+import { toggleChatDrawer } from "../../redux/reducer/chatReducer"
 
 
 interface IProps {
@@ -13,12 +14,25 @@ interface IProps {
 
 function ChatHeader({ isGroup = false }: IProps) {
     const { themeMode } = useAppSelector(state => state.layoutReducer)
+
+    const dispatch = useAppDispatch()
+
+
+    const toggleDrawer = () => {
+        return dispatch(toggleChatDrawer())
+    }
+
+
     return (
         <Box className="w-full h-20 overflow-hidden border-b">
             <Flex gap={4} alignItems={'center'} justifyContent={'space-between'} className="w-full h-full">
 
                 {/* User Avatar Details */}
-                <Flex flex={1} className="p-2">
+                <Flex
+                    flex={1}
+                    className="p-2"
+                    onClick={toggleDrawer}
+                >
                     <HStack className="w-fit rounded-md p-2 cursor-pointer"
                         _hover={{
                             bgColor: themeMode === 'dark' ? palletes.dark.secondary : palletes.light.secondary,

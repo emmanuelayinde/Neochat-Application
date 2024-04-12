@@ -1709,6 +1709,11 @@
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.14.0"
 
+"@wavesurfer/react@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@wavesurfer/react/-/react-1.0.5.tgz#d8e37d6157fbfa10deb63fa6776d09457dbb675f"
+  integrity sha512-xbomnyftHfGK+0Q2UHOOE4k5cd2RUBQYh7orgCuYvnmtXxhIgkLZ+jAyOP+watcyjw9x+VeKw++hJYdg0zdPNA==
+
 "@zag-js/dom-query@0.16.0":
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/@zag-js/dom-query/-/dom-query-0.16.0.tgz#bca46bcd78f78c900064478646d95f9781ed098e"
@@ -2105,6 +2110,13 @@ electron-to-chromium@^1.4.668:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.699.tgz#dd53c939e13da64e94b341e563f0a3011b4ef0e9"
   integrity sha512-I7q3BbQi6e4tJJN5CRcyvxhK0iJb34TV8eJQcgh+fR2fQ8miMgZcEInckCo1U9exDHbfz7DLDnFn8oqH/VcRKw==
 
+emoji-picker-react@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/emoji-picker-react/-/emoji-picker-react-4.9.2.tgz#5118c5e1028ce4a96c94eb7c9bef09d30b08742c"
+  integrity sha512-pdvLKpto0DMrjE+/8V9QeYjrMcOkJmqBn3GyCSG2zanY32rN2cnWzBUmzArvapAjzBvgf7hNmJP8xmsdu0cmJA==
+  dependencies:
+    flairup "0.0.38"
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -2346,6 +2358,11 @@ find-up@^5.0.0:
   dependencies:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
+
+flairup@0.0.38:
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/flairup/-/flairup-0.0.38.tgz#62216990a8317a1b07d1d816033624c5b2130f31"
+  integrity sha512-W9QA5TM7eYNlGoBYwfVn/o6v4yWBCxfq4+EJ5w774oFeyWvVWnYq6Dgt4CJltjG9y/lPwbOqz3jSSr8K66ToGg==
 
 flat-cache@^3.0.4:
   version "3.2.0"
@@ -3516,6 +3533,16 @@ vite@^5.1.4:
     rollup "^4.2.0"
   optionalDependencies:
     fsevents "~2.3.3"
+
+wavesurfer-react@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/wavesurfer-react/-/wavesurfer-react-3.0.2.tgz#68510f049c62055deeff3c1a90ab49ddfbdd4425"
+  integrity sha512-ATGbisSFrAPiPyOZKIMge7aFKnlu69Vy5XTpZ2H88hRJ64KcK+T3iNlzj/YOregj4HkYxWPzm1t4O617oAft+g==
+
+wavesurfer.js@^7.7.10:
+  version "7.7.10"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.10.tgz#b33abea4dc153b5302117c22ebaab7f38e8ad931"
+  integrity sha512-fpQ/OiHGkFxD6cJRuU/VQ+iuYM4ipMvMyD5fp0ENPPHYwiZeb01nqXYdXPemK70vAxNDHkVqAsFqLZEchxySJg==
 
 webrtc-adapter@^8.0.0:
   version "8.2.3"

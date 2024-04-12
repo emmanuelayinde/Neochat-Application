@@ -1,8 +1,20 @@
+import { personalChatMessages } from '../../data'
+import { ChatMessage } from '..'
+import { VStack } from '@chakra-ui/react'
 
 
 function ChatBody() {
   return (
-    <div>ChatBody</div>
+    <VStack
+      gap={2}
+    >
+      {personalChatMessages.map((message, key) =>
+        <ChatMessage
+          key={key}
+          currentUserId="user-1"
+          message={message}
+        />)}
+    </VStack>
   )
 }
 

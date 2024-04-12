@@ -1,4 +1,4 @@
-import { IChatPreview, callProps, userStatusPreviewProps } from "../@types";
+import { IChatPreview, IMessageProps, callProps, userStatusPreviewProps } from "../@types";
 import { ChatIcon, GroupIcon, PhoneIcon, ReloadIcon, UserIcon } from '../assets'
 import { avatars } from "./avatar";
 
@@ -443,6 +443,8 @@ export const userChats: IChatPreview[] = [
 export const palletes = {
   primary: "#43c651",
   secondary: "#056526",
+  danger: '#BB2124',
+  success: '#22BB33',
   dark: {
     primary: "#2e2e2e",
     secondary: "#262626",
@@ -456,3 +458,133 @@ export const palletes = {
     icon: "#262626",
   }
 }
+
+
+export const personalChatMessages: IMessageProps[] = [
+  {
+    _id: 'message-1',
+    chatId: 'chat-1',
+    sender: {
+      _id: 'user-1',
+      name: 'Emmanuel Ishola',
+      username: '@Emmanuel',
+      avatar: avatars[1].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: false,
+    isReply: false,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'text-message',
+    files: undefined,
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione obcaecati, iure reiciendis aliquid odit corrupti tenetur a libero ipsa placeat voluptas? Ratione, hic eos harum nemo labore voluptates, mollitia rem repellendus facilis nobis sint quidem aliquam deserunt iste corporis obcaecati inventore id ex beatae delectus quisquam! Architecto laborum veritatis assumenda!',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-2',
+    chatId: 'chat-2',
+    sender: {
+      _id: 'user-2',
+      name: 'Daniel Bryan',
+      username: '@Daniel',
+      avatar: avatars[2].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: true,
+    isReply: false,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'image-message',
+    files: undefined,
+    text: 'caption here',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-1',
+    chatId: 'chat-1',
+    sender: {
+      _id: 'user-1',
+      name: 'Emmanuel Ishola',
+      username: '@Emmanuel',
+      avatar: avatars[1].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: true,
+    isReply: true,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'audio-message',
+    files: undefined,
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione obcaecati, iure reiciendis aliquid odit corrupti tenetur a libero ipsa placeat voluptas? Ratione, hic eos harum nemo labore voluptates, mollitia rem repellendus facilis nobis sint quidem aliquam deserunt iste corporis obcaecati inventore id ex beatae delectus quisquam! Architecto laborum veritatis assumenda!',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-2',
+    chatId: 'chat-2',
+    sender: {
+      _id: 'user-2',
+      name: 'Daniel Bryan',
+      username: '@Daniel',
+      avatar: avatars[2].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: true,
+    isReply: false,
+    isViewOnce: true,
+    messageType: '1-1',
+    type: 'file-message',
+    files: undefined,
+    text: 'caption here',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-1',
+    chatId: 'chat-1',
+    sender: {
+      _id: 'user-1',
+      name: 'Emmanuel Ishola',
+      username: '@Emmanuel',
+      avatar: avatars[1].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: false,
+    isReply: false,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'voice-message',
+    files: undefined,
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione obcaecati, iure reiciendis aliquid odit corrupti tenetur a libero ipsa placeat voluptas? Ratione, hic eos harum nemo labore voluptates, mollitia rem repellendus facilis nobis sint quidem aliquam deserunt iste corporis obcaecati inventore id ex beatae delectus quisquam! Architecto laborum veritatis assumenda!',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-2',
+    chatId: 'chat-2',
+    sender: {
+      _id: 'user-2',
+      name: 'Daniel Bryan',
+      username: '@Daniel',
+      avatar: avatars[2].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: true,
+    isReply: false,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'video-message',
+    files: undefined,
+    text: 'caption here',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+]
