@@ -1,6 +1,5 @@
-import { Box, Button, HStack, Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react'
-import clsx from 'clsx'
-import React, { useState } from 'react'
+import { Box, HStack, Input } from '@chakra-ui/react'
+import React from 'react'
 
 
 
@@ -17,7 +16,7 @@ interface IProps {
 
 
 export const ChatInput = ({ styles, onChange, onKeyDown, onKeyUp, value, placeholder, leftItem = undefined, rightItem = undefined }: IProps) => {
-
+    console.log(styles, onKeyDown, onKeyUp, value)
     return (
         <HStack gap={2} width={'100%'} alignItems={'center'}>
 

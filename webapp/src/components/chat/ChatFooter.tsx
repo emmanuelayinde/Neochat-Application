@@ -2,9 +2,9 @@ import { Flex, HStack } from "@chakra-ui/react"
 import { useAppSelector } from "../../redux/type"
 import { IconButton, ChatInput } from ".."
 import { useEffect, useState } from "react"
-import { AttachmentIcon, EmojiIcon, MicIcon, SendIcon, TimesIcon } from "../../assets"
+import { AttachmentIcon, EmojiIcon, MicIcon, SendIcon } from "../../assets"
 import { palletes } from "../../data"
-import EmojiPickerUi from "../ui/EmojiPicker"
+// import EmojiPickerUi from "../ui/EmojiPicker"
 
 
 function ChatFooter() {
