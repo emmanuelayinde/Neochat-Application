@@ -17,6 +17,7 @@ export { default as ChatFooter } from './chat/ChatFooter'
 export { default as ChatBody } from './chat/ChatBody'
 export { default as ChatHeader } from './chat/ChatHeader'
 export { default as ChatMessagePreview } from './chat/ChatMessagePreview'
+export { ChatImageGallery, ChatVideoGallery } from './chat/ChatMediaGrid'
 
 // Layout Components
 export { default as LeftBar } from './layout/LeftBar'

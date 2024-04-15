@@ -6,7 +6,7 @@ import { VStack } from '@chakra-ui/react'
 function ChatBody() {
   return (
     <VStack
-      gap={2}
+      gap={1}
     >
       {personalChatMessages.map((message, key) =>
         <ChatMessage

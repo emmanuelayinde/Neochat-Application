@@ -1,5 +1,8 @@
+import { ChatAvatar, ChatImageGallery } from ".."
 import { IMessageProps } from "../../@types"
 import { Box, Flex, Text } from '@chakra-ui/react'
+// import { useAppSelector } from "../../redux/type"
+import { images } from "../../data"
 
 
 interface IMsgProps {
@@ -9,15 +12,12 @@ interface IMsgProps {
 
 
 const ChatMessage = ({ message, currentUserId }: IMsgProps) => {
-    // console.log(message.sender._id, { currentUserId })
-
     if (message.isViewOnce) {
         return <ViewOnceMessage
             message={message}
             isMine={message.sender._id === currentUserId}
         />
     }
-
     switch (message.type) {
         case 'text-message':
             return <TextMessage
@@ -70,54 +70,74 @@ export default ChatMessage
 
 // Text Message Component
 export const TextMessage = ({ message, isMine }: { message: IMessageProps, isMine: boolean }) => {
-    // console.log({ isMine })
-
     return (
         <Flex
+            gap={2}
+            alignItems={'flex-end'}
             width={'100%'}
             justifyContent={isMine ? 'flex-end' : 'flex-start'}
             id={`personal-message-${message._id}`}
-            className="border-2"
+            className="p-4"
         >
-            <Box
-                className={`w-fit min-w-32 max-w-[90%] md:max-w-[60%] lg:max-w-[55%] border`}
+            <Flex
+                order={!isMine ? 2 : undefined}
+                gap={2}
+                flexDirection={'column'}
+                className={`w-fit min-w-32 max-w-[90%] md:max-w-[60%] lg:max-w-[55%] p-4 rounded-lg dark:bg-secondary-dark/90`}
             >
+                {!isMine && <Flex justifyContent={'space-between'} alignItems={'center'}>
+                    <Text>{message.sender.name}</Text>
+                    <Text className="text-xs italic">{message.createdAt.getTime()}</Text>
+                </Flex>}
                 <Text>
-                    {isMine}
                     {message?.text}
                 </Text>
-            </Box>
+            </Flex>
 
-
+            {!isMine && <ChatAvatar url={message.sender.avatar || ''} radius={4} />}
         </Flex>
     )
 }
 
 
-
-
 // Image Message Component
 export const ImageMessage = ({ message, isMine }: { message: IMessageProps, isMine: boolean }) => {
-    // console.log({ isMine })
-
+    console.log({ message }, 'FILES')
     return (
         <Flex
+            gap={2}
+            alignItems={'flex-end'}
             width={'100%'}
             justifyContent={isMine ? 'flex-end' : 'flex-start'}
             id={`personal-message-${message._id}`}
-            className="border-2"
+            className="p-4"
         >
-            <Box
-                className={`w-fit min-w-32 max-w-[90%] md:max-w-[60%] lg:max-w-[55%] border`}
+            <Flex
+                order={!isMine ? 2 : undefined}
+                gap={2}
+                flexDirection={'column'}
+                className={`w-fit min-w-32 max-w-[90%] md:max-w-[60%] lg:max-w-[55%] p-4 rounded-lg dark:bg-secondary-dark/90`}
             >
+                {!isMine && <Flex justifyContent={'space-between'} alignItems={'center'}>
+                    <Text>{message.sender.name}</Text>
+                    <Text className="text-xs italic">{message.createdAt.getTime()}</Text>
+                </Flex>}
+
+                <ChatImageGallery
+                    // images={[images[0]]}
+                // images={[images[0], images[1]]}
+                images={[images[0], images[1], images[2]]}
+                // images={[images[0], images[1], images[2], images[3]]}
+                // images={[images[0], images[1], images[2], images[3], images[4]]}
+                />
                 <Text>
-                    {isMine}
-                    {message?.type}
+                    {message?.text}
                 </Text>
-            </Box>
+            </Flex>
 
-
+            {!isMine && <ChatAvatar url={message.sender.avatar || ''} radius={4} />}
         </Flex>
+
     )
 }
 
@@ -285,3 +305,4 @@ export const UnsupportedMessage = ({ message, isMine }: { message: IMessageProps
         </Flex>
     )
 }
+
