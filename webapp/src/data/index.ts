@@ -359,7 +359,7 @@ export const userChats: IChatPreview[] = [
       isReply: false,
       isViewOnce: false,
       sender: {
-        _id: 'user_1',
+        _id: 'user-1',
         name: 'SoluTion',
         username: 'solution',
         avatar: avatars[0].url,
@@ -375,7 +375,7 @@ export const userChats: IChatPreview[] = [
   {
     chatId: '2',
     participants: [{
-      _id: 'user_1',
+      _id: 'user-2',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[2].url,
@@ -386,7 +386,7 @@ export const userChats: IChatPreview[] = [
   {
     chatId: '3',
     participants: [{
-      _id: 'user_1',
+      _id: 'user-2',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[2].url,
@@ -396,7 +396,7 @@ export const userChats: IChatPreview[] = [
     lastMessage: {
       _id: 'message_1',
       isReply: false,
-      isViewOnce: false,
+      isViewOnce: true,
       sender: {
         _id: 'user_1',
         name: 'SoluTion',
@@ -413,7 +413,7 @@ export const userChats: IChatPreview[] = [
   {
     chatId: '4',
     participants: [{
-      _id: 'user_1',
+      _id: 'user-1',
       name: 'SoluTion',
       username: 'solution',
       avatar: avatars[3].url,
@@ -433,10 +433,119 @@ export const userChats: IChatPreview[] = [
         lastSeen: new Date()
       },
       text: "New Message",
-      type: 'text-message',
+      type: 'file-message',
       voiceNote: '',
     },
   },
+  {
+    chatId: '1',
+    participants: [{
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[0].url,
+      isOnline: true,
+      lastSeen: new Date()
+    }],
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user-1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'video-message',
+      voiceNote: '',
+    }
+  },
+  {
+    chatId: '1',
+    participants: [{
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[0].url,
+      isOnline: true,
+      lastSeen: new Date()
+    }],
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user-1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'voice-message',
+      voiceNote: '',
+    },
+  },
+  {
+    chatId: '1',
+    participants: [{
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[0].url,
+      isOnline: true,
+      lastSeen: new Date()
+    }],
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user-1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'audio-message',
+      voiceNote: '',
+    },
+  },
+  {
+    chatId: '1',
+    participants: [{
+      _id: 'user_1',
+      name: 'SoluTion',
+      username: 'solution',
+      avatar: avatars[0].url,
+      isOnline: true,
+      lastSeen: new Date()
+    }],
+    lastMessage: {
+      _id: 'message_1',
+      isReply: false,
+      isViewOnce: false,
+      sender: {
+        _id: 'user-1',
+        name: 'SoluTion',
+        username: 'solution',
+        avatar: avatars[0].url,
+        isOnline: true,
+        lastSeen: new Date()
+      },
+      text: "New Message",
+      type: 'image-message',
+      voiceNote: '',
+    },
+  },
+
 
 ]
 

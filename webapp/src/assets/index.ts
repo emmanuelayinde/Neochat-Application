@@ -30,5 +30,12 @@ export {
     CircularExclaimationIcon,
     ViewOnceIcon,
     OpenedViewOnceIcon,
-    TrashIcon
+    TrashIcon,
+    CheckBadgeIcon,
+    BookmarkIcon,
+    ChartIcon,
+    FileIcon,
+    FilmIcon,
+    PhotoIcon,
+    StartIcon
 } from './icon'
