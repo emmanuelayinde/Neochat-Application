@@ -9,7 +9,10 @@ function PersonalChat() {
     <HStack gap={0} direction={'row'} className="w-full">
       <VStack direction={'column'} justifyContent={'flex-end'} className="w-full h-full overflow-hidden">
         <ChatHeader />
-        <Flex flexGrow={1}>
+        <Flex
+          flexGrow={1}
+          className="h-auto overflow-auto"
+        >
           <ChatBody />
         </Flex>
         <ChatFooter />

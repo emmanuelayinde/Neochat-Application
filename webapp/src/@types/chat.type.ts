@@ -108,3 +108,5 @@ export interface IGroupChatPreview {
 
 
 export type chatStatus = 'online' | 'offline' | 'away'
+export type mediaPlaybackSpeed = '0.5' | '1' | '1.5' | '2'
+export type recordingEventTypes = 'start-recording' | 'pause-recording' | 'resume-recording' | 'stop-recording' | 'delete-recording'

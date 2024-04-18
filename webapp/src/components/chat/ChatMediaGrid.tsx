@@ -10,9 +10,7 @@ export const ChatImageGallery = ({ images }: { images: string[] }) => {
     const [gridTemplateColumns, setGridTemplateColumns] = useState<string | undefined>(undefined);
     const [gridTemplateRows, setGridTemplateRows] = useState<string | undefined>(undefined);
     // const [gridSpan, setGridSpan] = useState<{ start: number, end: number } | undefined>(undefined);
-
-
-
+    
     useEffect(() => {
         const imageGrid = () => {
             if (images.length === 2) {

@@ -18,6 +18,9 @@ export { default as ChatBody } from './chat/ChatBody'
 export { default as ChatHeader } from './chat/ChatHeader'
 export { default as ChatMessagePreview } from './chat/ChatMessagePreview'
 export { ChatImageGallery, ChatVideoGallery } from './chat/ChatMediaGrid'
+export { default as ChatDocument } from './chat/ChatDocument'
+export { default as ChatAudio } from './chat/ChatAudio'
+export { ChatVoicePlayer, ChatVoiceRecorder } from './chat/ChatVoice'
 
 // Layout Components
 export { default as LeftBar } from './layout/LeftBar'

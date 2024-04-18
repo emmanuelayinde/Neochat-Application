@@ -7,6 +7,8 @@ function ChatBody() {
   return (
     <VStack
       gap={1}
+      flexGrow={1}
+      // className='border-2 border-red-500'
     >
       {personalChatMessages.map((message, key) =>
         <ChatMessage

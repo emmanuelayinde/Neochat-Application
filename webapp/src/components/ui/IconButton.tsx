@@ -22,6 +22,11 @@ function IconButtonUI({ children, label, styles, color = undefined, BgColor = un
         <IconButton
             aria-label={label}
             className={styles}
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
             backgroundColor={isBgTransparent ? 'transparent' : BgColor}
             color={color ? color : themeMode === 'dark' ? palletes.dark.icon : palletes.light.icon}
             onClick={onClick}

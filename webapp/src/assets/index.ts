@@ -21,5 +21,14 @@ export {
     AttachmentIcon,
     SendIcon,
     EmojiIcon,
-    TimesIcon
+    TimesIcon,
+    DocumentIcon,
+    DownloadIcon,
+    MusicIcon,
+    PauseIcon,
+    PlayIcon,
+    CircularExclaimationIcon,
+    ViewOnceIcon,
+    OpenedViewOnceIcon,
+    TrashIcon
 } from './icon'

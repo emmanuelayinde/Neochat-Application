@@ -14,6 +14,8 @@ export default {
         "primary-dark": "#2e2e2e",
         "secondary-dark": "#262626",
         primaryText: "#555",
+        danger: "#BB2124",
+        success: "#22BB33"
       },
       backgroundColor: {
         'brand-primary': "#43c651",
