@@ -3,12 +3,13 @@ import { useWavesurfer } from '@wavesurfer/react'
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js'
 // import Hover from 'wavesurfer.js/dist/plugins/hover.esm.js'
 import { Box, Divider, Flex, HStack, Text } from "@chakra-ui/react"
-import { PauseIcon, PlayIcon, TrashIcon, ViewOnceIcon } from "../../assets"
+import { PauseIcon, PlayIcon, TimesIcon, TrashIcon, ViewOnceIcon } from "../../assets"
 import { palletes } from '../../data'
 import audio from '../../assets/audio/audio.mp4'
 import { formatDuration } from '../../utils/time.utils'
 import { IconButton } from '..'
 import { recordingEventTypes } from '../../@types/chat.type'
+import { useAppSelector } from '../../redux/type'
 
 
 interface IVoicePlayerProps {
@@ -86,104 +87,122 @@ export const ChatVoicePlayer = ({ src = audio, waveHeight = 60 }: IVoicePlayerPr
 interface IVoiceRecorderProps {
     event: recordingEventTypes | null,
     setEvent: React.Dispatch<React.SetStateAction<recordingEventTypes | null>>,
+    isVoiceMode: boolean,
+    setIsVoiceMode: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsVoiceRecording: React.Dispatch<React.SetStateAction<boolean>>,
     // isRecording: boolean,
     // setIsRecording: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ChatVoiceRecorder = ({ event, setEvent }: IVoiceRecorderProps) => {
+export const ChatVoiceRecorder = ({ setIsVoiceRecording, isVoiceMode, setIsVoiceMode }: IVoiceRecorderProps) => {
     const [currentRecordingInSecs, setCurrentRecordingInSecs] = useState<string | undefined>()
     const [_, setCurrentRecordedBlob] = useState<Blob | null>(null)
+
+    const { themeMode } = useAppSelector(state => state.layoutReducer)
 
     const wavesurferRecorderRef = useRef<RecordPlugin>()
     const recordingWaveContainer = useRef(null)
 
-    const { wavesurfer } = useWavesurfer({
+    const { wavesurfer, isReady } = useWavesurfer({
         container: recordingWaveContainer,
-        height: 60,
-        waveColor: palletes.secondary,
+        height: 30,
+        waveColor: isVoiceMode ? (themeMode === 'dark' ? palletes.dark.text : palletes.light.text) : palletes.secondary,
         progressColor: palletes.primary,
         cursorWidth: 0,
-        barGap: 2,
+        barWidth: 2,
+        barGap: 4,
         barHeight: 2,
-        barRadius: 10,
+        barRadius: 5,
         fillParent: true,
     })
 
     useEffect(() => {
-        // Initialize WaveSurfer Recording Plugin
-        wavesurferRecorderRef.current = wavesurfer?.registerPlugin(
-            RecordPlugin.create({ scrollingWaveform: true })
-        )
+        if (wavesurfer) {
+            // Initialize WaveSurfer Recording Plugin
+            wavesurferRecorderRef.current = wavesurfer?.registerPlugin(
+                RecordPlugin.create({ scrollingWaveform: true })
+            )
 
-        wavesurferRecorderRef.current?.on('record-end', (blob) => {
-            const recordedUrl = URL.createObjectURL(blob)
-            setCurrentRecordedBlob(blob)
-            wavesurfer?.load(recordedUrl)
-        })
+            wavesurferRecorderRef.current?.on('record-end', (blob) => {
+                const recordedUrl = URL.createObjectURL(blob)
+                setCurrentRecordedBlob(blob)
+                wavesurfer?.load(recordedUrl)
+                console.log("onStoppedRecording event fired")
+            })
 
-        wavesurferRecorderRef.current?.on('record-progress', (seconds) => {
-            setCurrentRecordingInSecs(formatDuration(seconds))
-        })
+            wavesurferRecorderRef.current?.on('record-progress', (seconds) => {
+                setCurrentRecordingInSecs(formatDuration(seconds))
+                console.log("onRecordingInProgress event fired")
+            })
 
-        wavesurfer?.on('error', (error) => console.log({ error }))
+            wavesurfer?.on('error', (error) => console.log({ error }))
 
-        return () => {
-            wavesurfer?.destroy()
-        }
-    }, [wavesurfer])
+            console.log("All Good")
 
-
-    useEffect(() => {
-        switch (event) {
-            case 'start-recording':
-                console.log('1')
-                startRecording()
-                break;
-
-            case 'pause-recording':
-                console.log('2')
-                pauseRecording()
-                break;
-
-            case 'resume-recording':
-                console.log('3')
-                resumeRecording()
-                break;
-
-            case 'stop-recording':
-                console.log('4')
-                stopRecording()
-                break;
-
-            case 'delete-recording':
-                console.log('5')
-                deleteRecording()
-                break;
-            default:
-                break;
+            // wavesurferRecorderRef.current.startRecording()
+            startRecording()
         }
 
         // return () => {
-        //     setEvent(null)
+        //     wavesurfer?.destroy()
         // }
-    }, [event])
+    }, [wavesurfer])
 
-    console.log({ event }, 'is paused? ' + wavesurferRecorderRef.current?.isPaused())
+
+    // useEffect(() => {
+    //     switch (event) {
+    //         case 'start-recording':
+    //             console.log('1')
+    //             startRecording()
+    //             return;
+
+    //         case 'pause-recording':
+    //             console.log('2')
+    //             pauseRecording()
+    //             return;
+
+    //         case 'resume-recording':
+    //             console.log('3')
+    //             resumeRecording()
+    //             return;
+
+    //         case 'stop-recording':
+    //             console.log('4')
+    //             stopRecording()
+    //             return;
+
+    //         case 'delete-recording':
+    //             console.log('5')
+    //             deleteRecording()
+    //             return;
+    //         default:
+    //             return;
+    //     }
+
+    //     // return () => {
+    //     //     setEvent(null)
+    //     // }
+    // }, [event])
+
+    // console.log({ event }, 'is paused? ' + wavesurferRecorderRef.current?.isPaused())
 
 
     const startRecording = async () => {
         if (wavesurferRecorderRef.current?.isRecording() || wavesurferRecorderRef.current?.isPaused()) {
-            stopRecording()
+            // stopRecording()
+            console.log('⚡ Stopped Recording...')
+
             return
         }
 
         setCurrentRecordedBlob(null)
+
         const deviceId = await RecordPlugin.getAvailableAudioDevices().then((devices) => {
             return devices[0].deviceId
         })
 
         wavesurferRecorderRef.current?.startRecording({ deviceId }).then(() => {
-            console.log('⚡ Starting Recording...')
+            console.log('⚡ Started Recording...')
             return
         })
     }
@@ -191,20 +210,25 @@ export const ChatVoiceRecorder = ({ event, setEvent }: IVoiceRecorderProps) => {
     const stopRecording = () => {
         if (wavesurferRecorderRef.current && (wavesurferRecorderRef.current?.isRecording() || wavesurferRecorderRef.current?.isPaused())) {
             wavesurferRecorderRef.current?.stopRecording()
-            console.log('🔥🔥🔥 Recording stopped')
+            setIsVoiceMode(false)
+            console.log('🔥secondary Recording stopped')
         }
     }
 
     const pauseRecording = async () => {
-        if (wavesurferRecorderRef.current?.isRecording() || !wavesurferRecorderRef.current?.isPaused()) {
+        console.log("Recording paused...")
+        if (wavesurferRecorderRef.current?.isRecording() && !wavesurferRecorderRef.current?.isPaused()) {
             wavesurferRecorderRef.current?.pauseRecording()
+
             return
         }
     }
 
     const resumeRecording = async () => {
-        if (wavesurferRecorderRef.current?.isRecording() || !wavesurferRecorderRef.current?.isPaused()) {
+        console.log("Recording resumed...")
+        if (wavesurferRecorderRef.current?.isPaused()) {
             wavesurferRecorderRef.current?.resumeRecording()
+
             return
         }
     }
@@ -212,27 +236,44 @@ export const ChatVoiceRecorder = ({ event, setEvent }: IVoiceRecorderProps) => {
     const deleteRecording = async () => {
         if (wavesurferRecorderRef.current) {
             setCurrentRecordedBlob(null)
+            setCurrentRecordingInSecs(undefined)
             wavesurferRecorderRef.current?.destroy()
+            wavesurfer?.destroy()
+            setIsVoiceRecording(false)
+            console.log("Recording deleted...")
         }
     }
 
+
+    console.log("is Recording ===> ", wavesurferRecorderRef.current?.isRecording())
+    console.log({ isReady })
+
     return (
         <HStack gap={2} alignItems={'center'} justifyContent={'flex-end'} className='w-full px-2 '>
-            <IconButton label='delete recording' onHoverColor={palletes.danger} onClick={() => setEvent('delete-recording')} >
+            <IconButton
+                label='delete recording'
+                onHoverColor={palletes.danger}
+                onClick={() => deleteRecording()}
+            >
                 <TrashIcon />
             </IconButton>
             <Text className='text-sm'>
                 {currentRecordingInSecs ?? '00:00'}
             </Text>
 
-            <Box className='w-full max-w-48 border mx-2'>
-                <div ref={recordingWaveContainer} />
+            <Box className='w-full max-w-48 mx-2'>
+                <div ref={recordingWaveContainer}
+                    style={{
+                        visibility: isReady ? 'visible' : 'hidden'
+                    }}
+                />
             </Box>
 
             <IconButton
-                onClick={() => setEvent(wavesurferRecorderRef.current?.isPaused() ? 'resume-recording' : 'pause-recording')}
+                onClick={() => wavesurferRecorderRef.current?.isPaused() ? resumeRecording() : pauseRecording()}
                 label='toggle play/pause recording'
                 color={palletes.danger}
+                onHoverColor={palletes.danger}
                 styles={`border !rounded-full scale-75  !border-danger`}
             >
                 {wavesurferRecorderRef.current?.isPaused() ? <PlayIcon /> : <PauseIcon />}
@@ -240,8 +281,20 @@ export const ChatVoiceRecorder = ({ event, setEvent }: IVoiceRecorderProps) => {
 
             <Divider orientation='vertical' className='mx-1' />
 
-            <IconButton label='make voice note view-once' onClick={() => { }}>
+            <IconButton label='make voice note view-once'>
                 <ViewOnceIcon />
+            </IconButton>
+
+            <IconButton
+                label="send btn"
+                styles="bg-white"
+                onClick={() => { stopRecording() }}
+            // isBgTransparent={false}
+            // onHoverColor={palletes.primary}
+            // onHoverBgColor={themeMode === 'dark' ? palletes.dark.primary : palletes.light.primary}
+            // BgColor={themeMode === 'dark' ? palletes.dark.secondary : palletes.light.secondary} 
+            >
+                <TimesIcon stroke={palletes.danger} />
             </IconButton>
 
         </HStack>

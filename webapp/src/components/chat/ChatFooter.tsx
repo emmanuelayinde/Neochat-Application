@@ -23,10 +23,13 @@ function ChatFooter() {
         if (isVoiceRecording) {
             setRecordingEvent('stop-recording')
             setIsVoiceRecording(false)
+            console.log('stopped')
         }
         else {
             setRecordingEvent('start-recording')
             setIsVoiceRecording(true)
+            console.log('started')
+
         }
     }
 
@@ -65,6 +68,9 @@ function ChatFooter() {
                         <ChatVoiceRecorder
                             event={recordingEvent}
                             setEvent={setRecordingEvent}
+                            setIsVoiceMode={setIsVoiceMode}
+                            isVoiceMode={isVoiceMode}
+                            setIsVoiceRecording={setIsVoiceRecording}
                         />
                         :
                         <ChatInput
