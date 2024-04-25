@@ -1,17 +1,17 @@
 import { ChatAudio, ChatAvatar, ChatDocument, ChatImageGallery, ChatVoicePlayer } from ".."
 import { IMessageProps } from "../../@types"
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { images } from "../../data"
+import { images, palletes } from "../../data"
 import { formatDate } from "../../utils/time.utils"
-import { OpenedViewOnceIcon, ViewOnceIcon } from "../../assets"
+import { IncomingCallIcon, OpenedViewOnceIcon, OutgoingCallIcon, ViewOnceIcon } from "../../assets"
 import { useState } from "react"
+import { useAppSelector } from "../../redux/type"
 
 
 interface IMsgProps {
     message: IMessageProps,
     currentUserId: string,
 }
-
 
 const ChatMessage = ({ message, currentUserId }: IMsgProps) => {
     if (message.isViewOnce) {
@@ -53,6 +53,13 @@ const ChatMessage = ({ message, currentUserId }: IMsgProps) => {
 
         case 'file-message':
             return <FileMessage
+                message={message}
+                isMine={message.sender._id === currentUserId}
+            />
+
+        case 'voice-call':
+        case 'video-call':
+            return <CallMessage
                 message={message}
                 isMine={message.sender._id === currentUserId}
             />
@@ -311,9 +318,56 @@ export const ViewOnceMessage = ({ message, isMine }: { message: IMessageProps, i
                             message.type === 'image-message' ? 'photo' :
                                 message.type === 'video-message' ? 'video' :
                                     message.type === 'voice-message' ? 'voice' :
-                                        message.type === 'text-message' ? 'text' : ''
+                                        message.type === 'text-message' ? 'text' : 'Not Supported'
                         }
                     </Text>
+                </Flex>
+            </Box>
+            {!isMine && <ChatAvatar url={message.sender.avatar || ''} radius={4} />}
+        </Flex>
+    )
+}
+
+
+// ViewOnce Message Component
+export const CallMessage = ({ message, isMine }: { message: IMessageProps, isMine: boolean }) => {
+    const { themeMode } = useAppSelector(state => state.layoutReducer)
+    return (
+        <Flex
+            gap={2}
+            alignItems={'flex-end'}
+            width={'100%'}
+            justifyContent={isMine ? 'flex-end' : 'flex-start'}
+            id={`personal-message-${message._id}`}
+            className="p-4"
+        >
+            <Box
+                order={!isMine ? 2 : undefined}
+                gap={2}
+                flexDirection={'column'}
+                className={`w-fit min-w-32 max-w-[90%] md:max-w-[60%] lg:max-w-[55%] p-4 rounded-lg dark:bg-secondary-dark/90`}
+            >
+                {!isMine && <Flex justifyContent={'space-between'} alignItems={'center'} gap={8}>
+                    <Text>{message.sender.name}</Text>
+                    <Text className="text-xs italic">{formatDate(message.createdAt.getTime().toString())}</Text>
+                </Flex>}
+
+                <Flex alignItems={'center'} gap={2} className="w-full cursor-pointer">
+                    <Flex
+                        bgColor={themeMode === 'dark' ? palletes.dark.primary : palletes.light.primary}
+                        className={`rounded-full p-2`}
+                    >
+                        {isMine ? <OutgoingCallIcon styles="w-5" /> : <IncomingCallIcon styles="w-5" />}
+                    </Flex>
+                    <Flex gap={4} alignItems={'center'}>
+                        <Text className="capitalize">
+                            {message.type === 'video-call' ? 'video call' : 'voice call'}
+                        </Text>
+                        <div className="w-2 h-2 bg-brand-primary rounded-full" />
+                        <Text className="text-xs">
+                            2:32 secs
+                        </Text>
+                    </Flex>
                 </Flex>
             </Box>
             {!isMine && <ChatAvatar url={message.sender.avatar || ''} radius={4} />}

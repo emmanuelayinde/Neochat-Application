@@ -74,6 +74,8 @@ export enum MESSAGE_TYPE {
   AUDIO_MESSAGE = "audio-message",
   VIDEO_MESSAGE = "video-message",
   FILE_MESSAGE = "file-message",
+  VOICE_CALL_MESSAGE = "voice-message",
+  VIDEO_CALL_MESSAGE = "video-message",
 }
 
 

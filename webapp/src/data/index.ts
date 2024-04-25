@@ -1,13 +1,13 @@
-import { IChatPreview, IMessageProps, callProps, userStatusPreviewProps } from "../@types";
+import { IChatPreview, IMessageProps, callProps, userStoryPreviewProps } from "../@types";
 import { ChatIcon, GroupIcon, PhoneIcon, ReloadIcon, UserIcon } from '../assets'
 import { avatars } from "./avatar";
 
-export const recentStatus: userStatusPreviewProps[] = [
+export const recentStories: userStoryPreviewProps[] = [
   {
     avatar: avatars[1].url,
     time: "Just now",
     user: "Emmanuel Ishola",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: false },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: false },
@@ -18,7 +18,7 @@ export const recentStatus: userStatusPreviewProps[] = [
     avatar: avatars[2].url,
     time: "1 min ago",
     user: "Ishola Emmanuel",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: false },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: false },
@@ -29,7 +29,7 @@ export const recentStatus: userStatusPreviewProps[] = [
     avatar: avatars[3].url,
     time: "2 hours ago",
     user: "Ishow",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: false },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: false },
@@ -40,7 +40,7 @@ export const recentStatus: userStatusPreviewProps[] = [
     avatar: avatars[4].url,
     time: "1:35am",
     user: "Solution ",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: false },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: false },
@@ -51,84 +51,7 @@ export const recentStatus: userStatusPreviewProps[] = [
     avatar: avatars[3].url,
     time: "2 hours ago",
     user: "Ishow",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[4].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[4].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[3].url,
-    time: "2 hours ago",
-    user: "Ishow",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[4].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[4].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[3].url,
-    time: "2 hours ago",
-    user: "Ishow",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: false },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: false },
-      { content: "Cool", type: "voice", viewedByMe: false },
-    ],
-  },
-  {
-    avatar: avatars[4].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: false },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: false },
@@ -137,12 +60,12 @@ export const recentStatus: userStatusPreviewProps[] = [
   },
 ];
 
-export const viewedStatus: userStatusPreviewProps[] = [
+export const viewedStories: userStoryPreviewProps[] = [
   {
     avatar: avatars[1].url,
     time: "Just now",
     user: "Emmanuel Ishola",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: true },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: true },
@@ -153,35 +76,13 @@ export const viewedStatus: userStatusPreviewProps[] = [
     avatar: avatars[1].url,
     time: "1 min ago",
     user: "Ishola Emmanuel",
-    status: [
+    stories: [
       { content: "Cool", type: "text", viewedByMe: true },
       { content: "Cool", type: "image", viewedByMe: true },
       { content: "Cool", type: "video", viewedByMe: true },
       { content: "Cool", type: "voice", viewedByMe: true },
     ],
-  },
-  {
-    avatar: avatars[1].url,
-    time: "2 hours ago",
-    user: "Ishow",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: true },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: true },
-      { content: "Cool", type: "voice", viewedByMe: true },
-    ],
-  },
-  {
-    avatar: avatars[1].url,
-    time: "1:35am",
-    user: "Solution ",
-    status: [
-      { content: "Cool", type: "text", viewedByMe: true },
-      { content: "Cool", type: "image", viewedByMe: true },
-      { content: "Cool", type: "video", viewedByMe: true },
-      { content: "Cool", type: "voice", viewedByMe: true },
-    ],
-  },
+  }
 ];
 
 export const callHistory: callProps[] = [
@@ -545,8 +446,6 @@ export const userChats: IChatPreview[] = [
       voiceNote: '',
     },
   },
-
-
 ]
 
 export const personalChatMessages: IMessageProps[] = [
@@ -776,6 +675,48 @@ export const personalChatMessages: IMessageProps[] = [
     isViewOnce: true,
     messageType: '1-1',
     type: 'voice-message',
+    files: undefined,
+    text: 'caption here',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-2',
+    chatId: 'chat-2',
+    sender: {
+      _id: 'user-2',
+      name: 'Emmanuel Ishola',
+      username: '@Emmanuel',
+      avatar: avatars[2].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: false,
+    isReply: true,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'voice-call',
+    files: undefined,
+    text: 'caption here',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    _id: 'message-1',
+    chatId: 'chat-1',
+    sender: {
+      _id: 'user-1',
+      name: 'Emmanuel Ishola',
+      username: '@Emmanuel',
+      avatar: avatars[2].url,
+      lastSeen: new Date(),
+      isOnline: true,
+    },
+    editted: false,
+    isReply: true,
+    isViewOnce: false,
+    messageType: '1-1',
+    type: 'video-call',
     files: undefined,
     text: 'caption here',
     createdAt: new Date(),

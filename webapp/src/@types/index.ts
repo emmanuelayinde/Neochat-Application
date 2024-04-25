@@ -2,17 +2,23 @@
 export type {
     IChatPreview,
     IChatPreviewUser,
-    ILastMessage,
-    MessageTypesEnum,
     ChatPreviewType,
     IChatHeadProps,
     IChatProps,
-    IMessageProps,
-    IMessageSenderProps,
-    MessageTypes,
     IGroupChatPreview,
     chatStatus
 } from './chat.type'
+
+// Message 
+export type {
+    ILastMessage,
+    MessageTypesEnum,
+    IMessageProps,
+    IMessageSenderProps,
+    MessageTypes,
+    mediaPlaybackSpeed,
+    recordingEventTypes
+} from './message.type'
 
 // Call
 export type { callStatusIconName, callTypes, callOrigin, callProps, callStatus } from './call.type'
@@ -33,7 +39,7 @@ export type {
 } from './redux.type'
 
 // Status
-export type { statusContentType, statusProps, statusType, userStatusPreviewProps } from './status.type'
+export type { storyContentType, storyProps, storyType, userStoryPreviewProps } from './story'
 
 // Profile
 export type { profileData, profileLayoutType, profilePropType } from './profile.type'

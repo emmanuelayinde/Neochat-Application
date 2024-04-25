@@ -1,14 +1,4 @@
-// CHATS
-export enum MessageTypesEnum {
-    TEXT_MESSAGE = "text-message",
-    IMAGE_MESSAGE = "image-message",
-    VOICE_MESSAGE = "voice-message",
-    AUDIO_MESSAGE = "audio-message",
-    VIDEO_MESSAGE = "video-message",
-    FILE_MESSAGE = "file-message",
-}
-
-export type MessageTypes = "text-message" | "image-message" | "voice-message" | "audio-message" | "video-message" | "file-message"
+import { ILastMessage, IMessageProps } from "."
 
 export interface IChatPreviewUser {
     _id: string,
@@ -18,23 +8,6 @@ export interface IChatPreviewUser {
     isOnline?: boolean,
     lastSeen?: Date
 }
-
-export interface ILastMessage {
-    _id: string,
-    sender: IChatPreviewUser,
-    type: MessageTypes,
-    isReply: boolean,
-    text: string,
-    voiceNote: string,
-    isViewOnce: boolean
-}
-
-// export interface IChatPreview {
-//     chatId: string,
-//     user: IChatPreviewUser,
-//     lastMessage?: ILastMessage,
-// }
-
 
 export interface IChatPreview {
     chatId: string,
@@ -52,7 +25,6 @@ export interface ChatPreviewType {
     name: string
 }
 
-
 export interface IChatHeadProps {
     name: string,
     userId: string,
@@ -63,30 +35,6 @@ export interface IChatHeadProps {
     socketId: string | null | undefined
 }
 
-export interface IMessageSenderProps {
-    _id: string,
-    name: string,
-    username: string,
-    avatar?: string,
-    lastSeen?: Date,
-    isOnline: boolean
-}
-
-export interface IMessageProps {
-    _id: string,
-    sender: IMessageSenderProps,
-    chatId: string,
-    messageType: '1-1' | 'group',
-    type: MessageTypes,
-    editted: boolean,
-    isReply: boolean,
-    text?: string,
-    files?: string[],
-    isViewOnce: boolean,
-    createdAt: Date,
-    updatedAt: Date
-}
-
 export interface IChatProps {
     _id: string,
     participants: string[],
@@ -94,19 +42,11 @@ export interface IChatProps {
 }
 
 
-
-
-
 // GROUP 
-
 export interface IGroupChatPreview {
     groupId: string,
     participants: IChatPreviewUser[],
     lastMessage?: ILastMessage,
 }
 
-
-
 export type chatStatus = 'online' | 'offline' | 'away'
-export type mediaPlaybackSpeed = '0.5' | '1' | '1.5' | '2'
-export type recordingEventTypes = 'start-recording' | 'pause-recording' | 'resume-recording' | 'stop-recording' | 'delete-recording'

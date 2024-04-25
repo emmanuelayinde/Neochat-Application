@@ -132,7 +132,6 @@ export const VoiceMessage = () => {
     )
 }
 
-
 // ViewOnce Message Component
 export const ViewOnceMessage = () => {
     return (

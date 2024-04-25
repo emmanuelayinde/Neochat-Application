@@ -5,7 +5,7 @@ import { useAppSelector } from '../../redux/type'
 
 function ChatLists() {
     const { currentScreen } = useAppSelector(state => state.layoutReducer)
-    console.log({ currentScreen })
+    
     return (
         <VStack gap={4}>
             {userChats.map((chat) =>

@@ -23,11 +23,3 @@ function PersonalChat() {
 }
 
 export default PersonalChat
-
-
-
-
-
-{/* <Drawer isOpen={true} onClose={() => console.log('closed drawer')}  >
-    <p>Chat </p>
-  </Drawer> */}

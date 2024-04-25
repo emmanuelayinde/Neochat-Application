@@ -4,7 +4,7 @@ import { IconButton, ChatInput, ChatVoiceRecorder } from ".."
 import { useEffect, useState } from "react"
 import { AttachmentIcon, EmojiIcon, MicIcon, SendIcon } from "../../assets"
 import { palletes } from "../../data"
-import { recordingEventTypes } from "../../@types/chat.type"
+import { recordingEventTypes } from "../../@types"
 // import EmojiPickerUi from "../ui/EmojiPicker"
 
 

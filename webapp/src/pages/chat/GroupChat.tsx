@@ -1,8 +1,27 @@
+import { Flex, HStack, VStack } from "@chakra-ui/react"
+import { ChatBody, ChatDrawer, ChatFooter, ChatHeader } from "../../components"
+import { useAppSelector } from "../../redux/type"
+
 
 function GroupChat() {
+  const { isChatDrawerOpen } = useAppSelector(state => state.chatReducer)
+
   return (
-    <div>GroupChat</div>
+    <HStack gap={0} direction={'row'} className="w-full">
+      <VStack direction={'column'} justifyContent={'flex-end'} className="w-full h-full overflow-hidden">
+        <ChatHeader />
+        <Flex
+          flexGrow={1}
+          className="h-auto overflow-auto"
+        >
+          <ChatBody />
+        </Flex>
+        <ChatFooter />
+      </VStack>
+      {isChatDrawerOpen && <ChatDrawer />}
+    </HStack>
   )
 }
+
 
 export default GroupChat

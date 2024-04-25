@@ -4,7 +4,10 @@ import { MESSAGE_TYPE } from ".";
 import { Group } from "./groupModel";
 import { Chat } from "./chatModel";
 import { Status } from "./statusModel";
+import { Call } from "./callModel";
 
+
+// TODO: Needs to be re-structure to capture call, messages and every other type including their optional fields
 export class Message {
   @prop({ required: true, ref: () => User })
   public sender: Ref<User>;
@@ -17,6 +20,12 @@ export class Message {
 
   @prop({ required: true, enum: MESSAGE_TYPE, type: String })
   public type: MESSAGE_TYPE;
+
+  @prop({ type: Boolean, default: true })
+  public isCall: boolean;
+
+  @prop({})
+  public callDetails: Ref<Call>;
 
   @prop({ default: false })
   public editted?: boolean;
